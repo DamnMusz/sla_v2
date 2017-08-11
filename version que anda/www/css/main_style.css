@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'montez';
+  src:  url('../fonts/montez/Montez-Regular.ttf?6iuir') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+.fh5co-nav #fh5co-logo {
+  font-family: 'montez' !important;
+  font-size: 170%;
+}
+
+.fh5co-nav a {
+  color: white !important;
+}
+
+/*#fh5co-footer {
+  font-family: 'montez' !important;
+}*/
+
+.copyright .fh5co-social-icons li a i {
+  color: white !important;
+}

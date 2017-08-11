@@ -1,0 +1,19 @@
+{
+  "name": "SLA",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Damian Muszalski",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "jsreport": "^1.2.0",
+    "method-override": "^2.3.7",
+    "ng2-bs3-modal": "^0.10.4",
+    "jwt-simple": "^0.2.0"
+  }
+}
