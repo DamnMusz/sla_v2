@@ -6,6 +6,8 @@ var express = require("express"),
     mongoose = require("mongoose")
     auth = require('./routes/auth.js');
 
+var loggedUsers = [];
+
 app.use(express.static('public'));
 //app.use(express.static('app'));
 
@@ -44,6 +46,7 @@ fileSystem.readFile("./public/landing/index.html", function(err, html){
 // Any URL's that do not follow the below pattern should be avoided unless you 
 // are sure that authentication is not needed
 app.all('/api/v1/*', [require('./middlewares/validateRequest')]);
+app.all('/app/*', [require('./middlewares/validateRequest')]);
 
 
 // Index route
@@ -60,12 +63,16 @@ router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, './app/', 'index.html'));
 });
 */
-router.post('/login', auth.login);
+router.route('/login').post(auth.login);
 
 
 router.get('/app', function(req, res) {
     res.sendFile(path.join(__dirname, '/public/', 'app.html'));
 });
+
+app.get('/app/*', function(req, res) {
+  res.sendfile('./public/app.html')
+})
 
 app.use(router);
 
@@ -78,10 +85,10 @@ app.use('/api/v1/', usuarioRoutersHandler);
 
 // Connection to DB
 
-
+var port = process.env.PORT||4000;
 // Start server
-var server = app.listen(process.env.PORT, function() {
-	console.log("Node server running on port " + process.env.PORT);
+var server = app.listen(port, function() {
+	console.log("Node server running on port " + port);
 });
 
 /*

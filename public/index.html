@@ -108,6 +108,7 @@
   padding: 17px 0px;
   font-family: roboto;
   font-size: 14px;
+  width:100%;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
 
@@ -317,10 +318,10 @@
       <div class="modal-dialog">
         <div class="loginmodal-container">
           <h1>Iniciar Sesi&oacute;n</h1><br>
-          <form>
-          <input type="text" name="user" placeholder="Usuario">
-          <input type="password" name="pass" placeholder="Contraseña">
-          <input type="submit" name="login" class="login loginmodal-submit" value="Ingresar">
+          <form action"/login">
+          <input id="username" type="text" name="username" placeholder="Usuario">
+          <input id="password" type="password" name="password" placeholder="Contraseña">
+          <input id="loginButton" type="button" class="login loginmodal-submit button" value="Ingresar">
           </form>
         </div>
       </div>
@@ -342,10 +343,60 @@
 
     <script>
         $(document).ready(function() {
+            function getCookie(cname) {
+              var name = cname + "=";
+              var ca = document.cookie.split(';');
+              for(var i = 0; i < ca.length; i++) {
+                  var c = ca[i];
+                  while (c.charAt(0) == ' ') {
+                      c = c.substring(1);
+                  }
+                  if (c.indexOf(name) == 0) {
+                      return c.substring(name.length, c.length);
+                  }
+              }
+              return "";
+            };
             // This command is used to initialize some elements and make them work properly
             $.material.init();
+            // if(getCookie("access_token")) {
+            //   console.log(getCookie("access_token"));
+            //   $.ajax({
+            //     type: "POST",
+            //     url: "/app",
+            //     headers: {
+            //       "X-Access-Token":getCookie("access_token")
+            //     },
+            //     data: {username: document.getElementById("username").value, password: document.getElementById("password").value},
+            //     success: function(msg){
+            //       console.log(msg);
+            //       document.cookie='access_token='+msg.token;
+            //       document.cookie='key='+msg.user.username;
+            //       //window.location.replace("/app");
+            //     },
+            //     error: function(XMLHttpRequest, textStatus, errorThrown) {
+            //       alert(errorThrown);
+            //     }
+            //   });
+            // }
         });
         document.getElementById("anio").innerHTML = new Date().getFullYear();
+        document.getElementById("loginButton").addEventListener("click", function(){
+          $.ajax({
+            type: "POST",
+            url: "/login",
+            data: {username: document.getElementById("username").value, password: document.getElementById("password").value},
+            success: function(msg){
+              console.log(msg);
+              document.cookie='access_token='+msg.token;
+              document.cookie='key='+msg.user.username;
+              //window.location.replace("/app");
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              alert(errorThrown);
+            }
+          });
+        });
     </script>
   </body>
 </html>

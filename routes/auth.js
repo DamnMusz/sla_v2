@@ -1,9 +1,9 @@
 var jwt = require('jwt-simple');
+var loggedUsers = require('../server').loggedUsers;
  
-var auth = {
- 
+var auth = { 
   login: function(req, res) {
- 
+
     var username = req.body.username || '';
     var password = req.body.password || '';
  
@@ -11,7 +11,7 @@ var auth = {
       res.status(401);
       res.json({
         "status": 401,
-        "message": "Invalid credentials"
+        "message": "Credenciales no validas"
       });
       return;
     }
@@ -23,7 +23,7 @@ var auth = {
       res.status(401);
       res.json({
         "status": 401,
-        "message": "Invalid credentials"
+        "message": "Credenciales no validas"
       });
       return;
     }
@@ -37,25 +37,41 @@ var auth = {
   },
  
   validate: function(username, password) {
+    if(username != 'test')
+      return;
     // spoofing the DB response for simplicity
     var dbUserObj = { // spoofing a userobject from the DB. 
-      name: 'arvind',
+      name: 'Damián',
       role: 'admin',
-      username: 'arvind@myapp.com'
+      username: 'dmuszalski@tecno-red.com.ar'
     };
- 
+    console.log("Logueado: " + username);
+    console.log(loggedUsers);
+    loggedUsers.push(dbUserObj.username);
     return dbUserObj;
   },
  
   validateUser: function(username) {
-    // spoofing the DB response for simplicity
-    var dbUserObj = { // spoofing a userobject from the DB. 
-      name: 'arvind',
-      role: 'admin',
-      username: 'arvind@myapp.com'
-    };
- 
-    return dbUserObj;
+    if(!loggedUsers)
+    {
+      loggedUsers = [];
+      console.log("Reiniciados los logged users");
+    }
+    console.log("Está " + username + " entre los usuarios logueados?");
+    console.log(loggedUsers);
+    if(loggedUsers.indexOf(username)>=0) {
+      console.log("Ya está logueado: " + username);
+      // spoofing the DB response for simplicity
+      var dbUserObj = { // spoofing a userobject from the DB. 
+        name: 'Damián',
+        role: 'admin',
+        username: 'dmuszalski@tecno-red.com.ar'
+      };
+      return dbUserObj;
+    } else {
+      console.log("No está logueado: " + username);
+      return;
+    }
   },
 }
  
