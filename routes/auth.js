@@ -6,7 +6,6 @@ var auth = {
   removeUser: function(key) {
     var index = LOGGED_USERS.indexOf(key);
     if (index > -1) {
-      console.log("Sesion expirada: " + key);
       LOGGED_USERS.splice(index, 1);
     }
   },
@@ -54,8 +53,6 @@ var auth = {
         pass: 'lalala123',
         username: 'test'
     };
-    console.log("Logueado: " + username);
-    console.log(LOGGED_USERS);
     if(LOGGED_USERS.indexOf(username)<0) {
       LOGGED_USERS.push(dbUserObj.username);
     }
@@ -63,10 +60,7 @@ var auth = {
   },
  
   validateUser: function(username, password) {
-    console.log("Está " + username + " entre los usuarios logueados?");
-    console.log(LOGGED_USERS);
     if(LOGGED_USERS.indexOf(username)>=0) {
-      console.log("Ya está logueado: " + username);
       // spoofing the DB response for simplicity
       var dbUserObj = { // spoofing a userobject from the DB. 
         name: 'Damian Muszalski',
@@ -76,7 +70,6 @@ var auth = {
       };
       return dbUserObj;
     } else {
-      console.log("No está logueado: " + username + ". Procediendo a loguear.");
       if (username == '' || password == '')
         return;
       return auth.validate(username, password);

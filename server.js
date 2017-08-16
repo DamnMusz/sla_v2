@@ -5,10 +5,10 @@ var express = require("express"),
     bodyParser  = require("body-parser"),
     methodOverride = require("method-override");
     mongoose = require("mongoose")
-    auth = require('./routes/auth.js');
+    auth = require('./routes/auth.js')
+    db = require('./config_db').db;
 
 app.use(express.static('public'));
-//app.use(express.static('app'));
 
 // Middlewares
 app.use(bodyParser.urlencoded({extended: false}));
@@ -25,20 +25,9 @@ var allowCrossDomain = function(req, res, next) {
 }
 
 app.use(allowCrossDomain);
-//app.use(express.static(__dirname + '/app'));
-//app.use(express.static(__dirname + '/public/landing'));
-//app.use(express.static(__dirname + '/app'));
-
 
 // HTML read
 var fileSystem = require("fs");
-
-/*
-var indexHTML;
-fileSystem.readFile("./public/landing/index.html", function(err, html){
-	indexHTML = html;
-});
-*/
 
 // Auth Middleware - This will check if the token is valid
 // Only the requests that start with /api/v1/* will be checked for the token.
@@ -55,15 +44,18 @@ var router = express.Router();
  * Routes that can be accessed by any one
  */
 router.get('/prueba', function(req, res) {
-	res.send("Ok");
+    console.log(db);
+    var client = db.connect("agenda");
+    db.query('SELECT * FROM sla limit 100', client, res2 => {
+        db.disconnect(client)
+        res.send(res2.rows)
+    },e => {
+        db.disconnect(client)
+        res.status(500).send("ERROR");
+    })
 });
-/*
-router.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, './app/', 'index.html'));
-});
-*/
-router.route('/login').post(auth.login);
 
+router.route('/login').post(auth.login);
 
 router.get('/app', function(req, res) {
     res.sendFile(path.join(__dirname, '/public/', 'app.html'));
@@ -82,13 +74,12 @@ var usuarioRoutersHandler = require("./routersHandlers/usuarioRoutersHandler").g
 app.use('/api/v1/', usuarioRoutersHandler);
 
 
-// Connection to DB
-
 var port = process.env.PORT||4000;
 // Start server
 var server = app.listen(port, function() {
 	console.log("Node server running on port " + port);
 });
+
 
 /*
 require('jsreport')({ httpPort: 3001, httpsPort: 0 }).init();

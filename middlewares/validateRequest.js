@@ -43,18 +43,10 @@ module.exports = function(req, res, next) {
   // var key = (req.body && req.body.x_key) || (req.query && req.query.x_key) || req.headers['x-key'];
 
   if(!token && req.headers['cookie']) {
-    console.log("No hay token, ni key y si hay cookies");
     token = getCookie("access_token",req.headers['cookie']);
-    //key = getCookie("key",req.headers['cookie']);
   }
 
-  console.log(token);
-  // console.log(key);
-  console.log(getLoggedUsers());
- 
   if (token) {
-    console.log("HAY TOKEN!! Es este:");
-    console.log(token);
     try {
       var decoded = jwt.decode(token, require('../config/secret.js')());
       var key = decoded.user.username;
@@ -63,9 +55,7 @@ module.exports = function(req, res, next) {
         removeUser(key);
         debugOrRedirect(400, "Sesion expirada", res, '/');
         return;
-      } else { console.log("Sesion valida: " + key); }
-
-      console.log(decoded);
+      }
  
       // Authorize the user to see if s/he can access our resources
       var dbUser = validateUser(decoded.user.username, decoded.user.pass); // The key would be the logged in user's username
@@ -84,7 +74,6 @@ module.exports = function(req, res, next) {
       }
  
     } catch (err) {
-      console.log(err);
       debugOrRedirect(500, "Oops algo salio mal", res, '/');
     }
   } else {
