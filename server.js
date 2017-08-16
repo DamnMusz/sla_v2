@@ -1,3 +1,4 @@
+exports.LOGGED_USERS = [];
 var express = require("express"),
     app = express(),
 	path = require('path'),
@@ -5,8 +6,6 @@ var express = require("express"),
     methodOverride = require("method-override");
     mongoose = require("mongoose")
     auth = require('./routes/auth.js');
-
-var loggedUsers = [];
 
 app.use(express.static('public'));
 //app.use(express.static('app'));
@@ -71,7 +70,7 @@ router.get('/app', function(req, res) {
 });
 
 app.get('/app/*', function(req, res) {
-  res.sendfile('./public/app.html')
+  res.sendFile(path.join(__dirname, '/public/', 'app.html'));
 })
 
 app.use(router);

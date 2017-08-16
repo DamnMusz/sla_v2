@@ -355,30 +355,39 @@
                       return c.substring(name.length, c.length);
                   }
               }
-              return "";
+              return;
             };
             // This command is used to initialize some elements and make them work properly
             $.material.init();
-            // if(getCookie("access_token")) {
-            //   console.log(getCookie("access_token"));
-            //   $.ajax({
-            //     type: "POST",
-            //     url: "/app",
-            //     headers: {
-            //       "X-Access-Token":getCookie("access_token")
-            //     },
-            //     data: {username: document.getElementById("username").value, password: document.getElementById("password").value},
-            //     success: function(msg){
-            //       console.log(msg);
-            //       document.cookie='access_token='+msg.token;
-            //       document.cookie='key='+msg.user.username;
-            //       //window.location.replace("/app");
-            //     },
-            //     error: function(XMLHttpRequest, textStatus, errorThrown) {
-            //       alert(errorThrown);
-            //     }
-            //   });
-            // }
+            if(getCookie("access_token")) {
+              console.log(getCookie("access_token"));
+              $.ajax({
+                type: "GET",
+                url: "/app",
+                success:function(response){
+                  console.log("Ya estamos logueados, adentrooo");
+                  
+                  //window.location.href = '/app';
+                  window.location.replace("/app")
+                }, 
+                error: function(xhr, textStatus, errorThrown) { 
+                    alert(errorThrown);
+                } 
+                // headers: {
+                //   "X-Access-Token":getCookie("access_token")
+                // },
+                // data: {username: document.getElementById("username").value, password: document.getElementById("password").value},
+                // success: function(msg){
+                //   console.log(msg);
+                //   document.cookie='access_token='+msg.token;
+                //   document.cookie='key='+msg.user.username;
+                //   //window.location.replace("/app");
+                // },
+                // error: function(XMLHttpRequest, textStatus, errorThrown) {
+                //   alert(errorThrown);
+                // }
+              });
+            }
         });
         document.getElementById("anio").innerHTML = new Date().getFullYear();
         document.getElementById("loginButton").addEventListener("click", function(){
@@ -389,8 +398,8 @@
             success: function(msg){
               console.log(msg);
               document.cookie='access_token='+msg.token;
-              document.cookie='key='+msg.user.username;
-              //window.location.replace("/app");
+              //document.cookie='key='+msg.user.username;
+              window.location.replace("/app");
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
               alert(errorThrown);

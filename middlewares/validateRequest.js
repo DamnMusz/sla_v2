@@ -1,7 +1,9 @@
 var jwt = require('jwt-simple');
 var validateUser = require('../routes/auth').validateUser;
-var loggedUsers = require('../server').loggedUsers;
- 
+var removeUser = require('../routes/auth').removeUser;
+var getLoggedUsers = require('../routes/auth').getLoggedUsers;
+var debugMode = false;
+
 module.exports = function(req, res, next) {
   function getCookie(cname, cookie) {
     var name = cname + "=";
@@ -15,8 +17,20 @@ module.exports = function(req, res, next) {
             return c.substring(name.length, c.length);
         }
     }
-    return "";
+    return;
   };
+
+  function debugOrRedirect(status, message, res, redirectUrl) {
+    if(debugMode) {
+      res.status(status);
+        res.json({
+          "status": status,
+          "message": message
+        });
+    } else {
+      res.redirect('/');
+    }
+  }
 
   // When performing a cross domain request, you will recieve
   // a preflighted request first. This is to check if our the app
@@ -26,76 +40,55 @@ module.exports = function(req, res, next) {
   //if(req.method == 'OPTIONS') next();
  
   var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
-  var key = (req.body && req.body.x_key) || (req.query && req.query.x_key) || req.headers['x-key'];
+  // var key = (req.body && req.body.x_key) || (req.query && req.query.x_key) || req.headers['x-key'];
 
-  if(!token && !key) {
+  if(!token && req.headers['cookie']) {
+    console.log("No hay token, ni key y si hay cookies");
     token = getCookie("access_token",req.headers['cookie']);
-    key = getCookie("key",req.headers['cookie']);
+    //key = getCookie("key",req.headers['cookie']);
   }
 
   console.log(token);
-  console.log(key);
-  console.log(loggedUsers);
+  // console.log(key);
+  console.log(getLoggedUsers());
  
-  if (token || key) {
+  if (token) {
+    console.log("HAY TOKEN!! Es este:");
+    console.log(token);
     try {
       var decoded = jwt.decode(token, require('../config/secret.js')());
+      var key = decoded.user.username;
  
       if (decoded.exp <= Date.now()) {
-        var index = loggedUsers.indexOf(key);
-        if (index > -1) {
-          console.log("Sesion expirada: " + key);
-          array.splice(index, 1);
-        }
-        res.redirect('/');
-        // res.status(400);
-        // res.json({
-        //   "status": 400,
-        //   "message": "Sesion expirada"
-        // });
+        removeUser(key);
+        debugOrRedirect(400, "Sesion expirada", res, '/');
         return;
       } else { console.log("Sesion valida: " + key); }
+
+      console.log(decoded);
  
       // Authorize the user to see if s/he can access our resources
-      var dbUser = validateUser(key); // The key would be the logged in user's username
+      var dbUser = validateUser(decoded.user.username, decoded.user.pass); // The key would be the logged in user's username
       if (dbUser) { 
-        if ((req.url.indexOf('admin') >= 0 && dbUser.role == 'admin') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/v1/') >= 0)) {
+        if ((req.url.indexOf('admin') >= 0 && dbUser.role == 'admin') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/v1/') >= 0)
+        || (req.url.indexOf('/app') >= 0)) {
           next(); // To move to next middleware
         } else {
-          res.redirect('/');
-          // res.status(403);
-          // res.json({
-          //   "status": 403,
-          //   "message": "Usuario no autorizado"
-          // });
+          debugOrRedirect(403, "Usuario no autorizado", res, '/');
           return;
         }
       } else {
         // No user with this name exists, respond back with a 401
-        res.redirect('/');
-        // res.status(401);
-        // res.json({
-        //   "status": 401,
-        //   "message": "Usuario no valido"
-        // });
+        debugOrRedirect(401, "Usuario no valido", res, '/');
         return;
       }
  
     } catch (err) {
-      res.status(500);
-      res.json({
-        "status": 500,
-        "message": "Oops algo salio mal",
-        "error": err
-      });
+      console.log(err);
+      debugOrRedirect(500, "Oops algo salio mal", res, '/');
     }
   } else {
-    // res.status(401);
-    // res.json({
-    //   "status": 401,
-    //   "message": "Token o clave invalida"
-    // });
-    res.redirect('/');
+    debugOrRedirect(401, "Token o clave invalida", res, '/');
     return;
   }
 };

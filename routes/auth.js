@@ -1,7 +1,15 @@
 var jwt = require('jwt-simple');
-var loggedUsers = require('../server').loggedUsers;
+var LOGGED_USERS = require('../server').LOGGED_USERS;
  
-var auth = { 
+var auth = {
+  getLoggedUsers: function() { return LOGGED_USERS; },
+  removeUser: function(key) {
+    var index = LOGGED_USERS.indexOf(key);
+    if (index > -1) {
+      console.log("Sesion expirada: " + key);
+      LOGGED_USERS.splice(index, 1);
+    }
+  },
   login: function(req, res) {
 
     var username = req.body.username || '';
@@ -41,36 +49,37 @@ var auth = {
       return;
     // spoofing the DB response for simplicity
     var dbUserObj = { // spoofing a userobject from the DB. 
-      name: 'Damián',
-      role: 'admin',
-      username: 'dmuszalski@tecno-red.com.ar'
+        name: 'Damian Muszalski',
+        role: 'trd',
+        pass: 'lalala123',
+        username: 'test'
     };
     console.log("Logueado: " + username);
-    console.log(loggedUsers);
-    loggedUsers.push(dbUserObj.username);
+    console.log(LOGGED_USERS);
+    if(LOGGED_USERS.indexOf(username)<0) {
+      LOGGED_USERS.push(dbUserObj.username);
+    }
     return dbUserObj;
   },
  
-  validateUser: function(username) {
-    if(!loggedUsers)
-    {
-      loggedUsers = [];
-      console.log("Reiniciados los logged users");
-    }
+  validateUser: function(username, password) {
     console.log("Está " + username + " entre los usuarios logueados?");
-    console.log(loggedUsers);
-    if(loggedUsers.indexOf(username)>=0) {
+    console.log(LOGGED_USERS);
+    if(LOGGED_USERS.indexOf(username)>=0) {
       console.log("Ya está logueado: " + username);
       // spoofing the DB response for simplicity
       var dbUserObj = { // spoofing a userobject from the DB. 
-        name: 'Damián',
-        role: 'admin',
-        username: 'dmuszalski@tecno-red.com.ar'
+        name: 'Damian Muszalski',
+        role: 'trd',
+        pass: 'lalala123',
+        username: 'test'
       };
       return dbUserObj;
     } else {
-      console.log("No está logueado: " + username);
-      return;
+      console.log("No está logueado: " + username + ". Procediendo a loguear.");
+      if (username == '' || password == '')
+        return;
+      return auth.validate(username, password);
     }
   },
 }
@@ -79,13 +88,13 @@ var auth = {
 function genToken(user) {
   var expires = expiresIn(7); // 7 days
   var token = jwt.encode({
-    exp: expires
+    exp: expires,
+    user: user
   }, require('../config/secret')());
  
   return {
     token: token,
-    expires: expires,
-    user: user
+    expires: expires
   };
 }
  
