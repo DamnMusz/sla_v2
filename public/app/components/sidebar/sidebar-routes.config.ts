@@ -2,7 +2,7 @@ import {  RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
     { path: 'home', title: 'Inicio',  icon: 'dashboard', class: '' },
-    { path: 'table', title: 'SLA Aseguradoras',  icon:'trending_up', class: '' },
+    { path: 'sla', title: 'SLA Aseguradoras',  icon:'trending_up', class: '' },
     { path: '', title: '',  icon:'', class: 'inactiveLink' },
     { path: 'typography', title: 'Resumen Ejecutivo',  icon:'view_headline', class: '' },
     { path: 'icons', title: 'Semestral Aseguradoras',  icon:'work', class: '' },

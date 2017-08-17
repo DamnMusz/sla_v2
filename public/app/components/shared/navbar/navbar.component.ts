@@ -29,4 +29,13 @@ export class NavbarComponent implements OnInit{
         }
         return 'Dashboard';
     }
+
+    delete_cookie(name) {
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+
+    logout() {
+        this.delete_cookie('access_token');
+        window.location.replace("/");
+    }
 }

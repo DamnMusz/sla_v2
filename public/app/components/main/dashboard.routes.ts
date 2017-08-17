@@ -9,14 +9,16 @@ import { TypographyComponent } from './typography/typography.component';
 import { MapsComponent } from './maps/maps.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
 
+import { SLAComponent } from './sla/sla.component';
+
 export const MODULE_ROUTES: Route[] =[
     { path: 'home', component: HomeComponent },
     { path: 'user', component: UserComponent },
-    { path: 'table', component: TableComponent },
+    { path: 'sla', component: SLAComponent },
     { path: 'icons', component: IconsComponent },
     { path: 'notifications', component: NotificationsComponent },
     { path: 'typography', component: TypographyComponent },
-    { path: 'maps', component: MapsComponent },
+    { path: 'table', component: MapsComponent },
     { path: 'upgrade', component: UpgradeComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' }
 ]
@@ -29,5 +31,6 @@ export const MODULE_COMPONENTS = [
     NotificationsComponent,
     TypographyComponent,
     MapsComponent,
+    SLAComponent,
     UpgradeComponent
 ]

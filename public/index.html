@@ -138,6 +138,7 @@
   padding-right: 0 !important;
 }
 </style>
+
   </head>
 
   <body>	
@@ -365,27 +366,11 @@
                 type: "GET",
                 url: "/app",
                 success:function(response){
-                  console.log("Ya estamos logueados, adentrooo");
-                  
-                  //window.location.href = '/app';
                   window.location.replace("/app")
                 }, 
                 error: function(xhr, textStatus, errorThrown) { 
                     alert(errorThrown);
                 } 
-                // headers: {
-                //   "X-Access-Token":getCookie("access_token")
-                // },
-                // data: {username: document.getElementById("username").value, password: document.getElementById("password").value},
-                // success: function(msg){
-                //   console.log(msg);
-                //   document.cookie='access_token='+msg.token;
-                //   document.cookie='key='+msg.user.username;
-                //   //window.location.replace("/app");
-                // },
-                // error: function(XMLHttpRequest, textStatus, errorThrown) {
-                //   alert(errorThrown);
-                // }
               });
             }
         });
