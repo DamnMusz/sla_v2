@@ -72,15 +72,18 @@ app.use(router);
 // var usuarioRoutersHandler = require("./routersHandlers/usuarioRoutersHandler").getUsuarioRoutersHandler(express);
 // app.use('/api/v1/', usuarioRoutersHandler);
 
+var server = require('http').createServer(app); 
+var io = require('socket.io')(server);
 
 var port = process.env.PORT||4000;
+
 // Start server
-var server = app.listen(port, function() {
+var serverInstance = server.listen(port, function() {
 	console.log("Node server running on port " + port);
 });
 
-
 /*
+// DEJO COMENTADO EL JS REPORT USADO EN EL TP PROFESIONAL, PUEDE SER ÚTIL
 require('jsreport')({ httpPort: 3001, httpsPort: 0 }).init();
 
 router.get('/reportexample.pdf' ,function(req,res,next){
