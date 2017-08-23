@@ -1,7 +1,7 @@
 node_modules
 public/node_modules
-public/app/**/*.js
-public/app/**/*.map
+public/app/components/**/*.js
+public/app/components/**/*.map
 npm-debug.log
 public/npm-debug.log
 logs/reporter.log

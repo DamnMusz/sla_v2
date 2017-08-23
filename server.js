@@ -3,9 +3,8 @@ var express = require("express"),
     app = express(),
 	path = require('path'),
     bodyParser  = require("body-parser"),
-    methodOverride = require("method-override");
-    mongoose = require("mongoose")
-    auth = require('./routes/auth.js')
+    methodOverride = require("method-override"),
+    auth = require('./routes/auth.js'),
     db = require('./config_db').db;
 
 app.use(express.static('public'));
@@ -70,11 +69,11 @@ app.use(router);
 /*
  * Routes that can be accessed only by autheticated users (API routes)
  */
-var usuarioRoutersHandler = require("./routersHandlers/usuarioRoutersHandler").getUsuarioRoutersHandler(express);
-app.use('/api/v1/', usuarioRoutersHandler);
+// var usuarioRoutersHandler = require("./routersHandlers/usuarioRoutersHandler").getUsuarioRoutersHandler(express);
+// app.use('/api/v1/', usuarioRoutersHandler);
 
 
-var port = process.env.PORT||4000;
+var port = process.env.PORT||3000;
 // Start server
 var server = app.listen(port, function() {
 	console.log("Node server running on port " + port);
