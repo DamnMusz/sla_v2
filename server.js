@@ -45,7 +45,7 @@ var router = express.Router();
 router.get('/prueba', function(req, res) {
     console.log(db);
     var client = db.connect("agenda");
-    db.query('SELECT * FROM sla limit 100', client, res2 => {
+    db.query('SELECT * FROM sla limit 1000', client, res2 => {
         db.disconnect(client)
         res.send(res2.rows)
     },e => {
@@ -80,6 +80,16 @@ var port = process.env.PORT||4000;
 // Start server
 var serverInstance = server.listen(port, function() {
 	console.log("Node server running on port " + port);
+});
+
+io.on('connection', function(client) {  
+    console.log('Client connected...');
+
+    client.on('join', function(data) {
+        console.log(data);
+        client.emit('messages', 'Hello from server');
+    });
+
 });
 
 /*

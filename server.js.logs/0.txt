@@ -1,38 +1,21 @@
-Node server running on port \\.\pipe\0d3e9fdb-2ee5-43a8-9e7a-e43c9f2e1262
-Connecting to DB
-DB Connection Successful.
-pg sucks...
-null Result {
-  command: 'SELECT',
-  rowCount: NaN,
-  oid: null,
-  rows: [ anonymous { now: 2017-08-16T19:01:51.749Z } ],
-  fields: 
-   [ Field {
-       name: 'now',
-       tableID: 0,
-       columnID: 0,
-       dataTypeID: 1184,
-       dataTypeSize: 8,
-       dataTypeModifier: -1,
-       format: 'text' } ],
-  _parsers: [ [Function: parseDate] ],
-  RowCtor: [Function: anonymous],
-  rowAsArray: false,
-  _getTypeParser: [Function: bound ] }
-C:\WebSites\BasicExpressSite\server.js:90
-        res.send(res);
-            ^
-
-TypeError: res.send is not a function
-    at Query.client.query (C:\WebSites\BasicExpressSite\server.js:90:13)
-    at Query.handleReadyForQuery (C:\WebSites\BasicExpressSite\node_modules\pg\lib\query.js:126:10)
-    at Connection.<anonymous> (C:\WebSites\BasicExpressSite\node_modules\pg\lib\client.js:166:19)
-    at emitOne (events.js:101:20)
-    at Connection.emit (events.js:191:7)
-    at Socket.<anonymous> (C:\WebSites\BasicExpressSite\node_modules\pg\lib\connection.js:118:12)
-    at emitOne (events.js:96:13)
-    at Socket.emit (events.js:191:7)
-    at readableAddChunk (_stream_readable.js:176:18)
-    at Socket.Readable.push (_stream_readable.js:134:10)
-    at TCP.onread (net.js:563:20)
+Node server running on port \\.\pipe\43010f9c-2afb-4fba-bee5-af7acd7227f8
+{ databases: 
+   { agenda: 
+      { host: '192.168.250.200',
+        database: 'agenda_prueba',
+        user: 'agenda',
+        password: '3280',
+        port: 5432 } },
+  connect: [Function: connect],
+  disconnect: [Function: disconnect],
+  query: [Function: query] }
+{ databases: 
+   { agenda: 
+      { host: '192.168.250.200',
+        database: 'agenda_prueba',
+        user: 'agenda',
+        password: '3280',
+        port: 5432 } },
+  connect: [Function: connect],
+  disconnect: [Function: disconnect],
+  query: [Function: query] }
