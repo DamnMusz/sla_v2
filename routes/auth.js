@@ -1,5 +1,6 @@
 var jwt = require('jwt-simple');
 var LOGGED_USERS = require('../server').LOGGED_USERS;
+var db = require('../config_db').db;
  
 var auth = {
   getLoggedUsers: function() { return LOGGED_USERS; },
@@ -22,11 +23,12 @@ var auth = {
       });
       return;
     }
- 
-    // Fire a query to your DB and check if the credentials are valid
-    var dbUserObj = auth.validate(username, password);
-   
-    if (!dbUserObj) { // If authentication fails, we send a 401 back
+
+    let successCallback = function(dbUserObj) {
+      res.json(genToken(dbUserObj));
+    }
+
+    let failCallback = function() {
       res.status(401);
       res.json({
         "status": 401,
@@ -34,52 +36,72 @@ var auth = {
       });
       return;
     }
- 
-    if (dbUserObj) {
-      // If authentication is success, we will generate a token
-      // and dispatch it to the client
-      res.json(genToken(dbUserObj));
-    }
- 
+
+    // Fire a query to your DB and check if the credentials are valid
+    auth.validate(username, password, successCallback, failCallback);
   },
  
-  validate: function(username, password) {
-    if(username != 'test')
-      return;
-    // spoofing the DB response for simplicity
-    var dbUserObj = { // spoofing a userobject from the DB. 
-        name: 'Damian Muszalski',
-        role: 'trd',
-        pass: 'lalala123',
-        username: 'test'
-    };
-    if(LOGGED_USERS.indexOf(username)<0) {
-      LOGGED_USERS.push(dbUserObj.username);
+  validate: function(username, password, success, fail) {
+    // if(username != 'test')
+    //   fail();
+    let successCallback = function(obj) {
+      // var dbUserObj = {
+      //     name: 'Damian Muszalski',
+      //     role: 'trd',
+      //     pass: 'lalala123',
+      //     username: 'test'
+      // };
+      if(LOGGED_USERS.indexOf(obj.username)<0) {
+        LOGGED_USERS.push(obj.username);
+      }
+      success(obj);
     }
-    return dbUserObj;
+    let failCallback = function() {
+      fail();
+    }
+    this.queryUser(username, password, successCallback, failCallback);    
   },
- 
-  validateUser: function(username, password) {
-    if(LOGGED_USERS.indexOf(username)>=0) {
-      // spoofing the DB response for simplicity
-      var dbUserObj = { // spoofing a userobject from the DB. 
-        name: 'Damian Muszalski',
+
+  queryUser: function(username, password, success, fail) {
+    var client = db.connect("agenda");
+    var queryString = 'SELECT "Nombre", "Apellido" FROM "Usuarios" INNER JOIN sla_usuarios_permisos ON "Usuarios"."Usuarios_Id" = sla_usuarios_permisos.id WHERE "Usuario"=\''+username
+      +'\' AND "Password"=\'' + password + '\' AND sla_usuarios_permisos.activo=true limit 1';
+    db.query(queryString, client, res => {
+        db.disconnect(client)
+        if(res == [])
+          fail();
+        var dbUserObj = {
+        name: res.rows[0].Nombre,
+        surname: res.rows[0].Apellido,
         role: 'trd',
-        pass: 'lalala123',
-        username: 'test'
+        pass: password,
+        username: username
       };
-      return dbUserObj;
+      if(LOGGED_USERS.indexOf(username)<0) {
+        LOGGED_USERS.push(dbUserObj.username);
+      }
+      success(dbUserObj);
+    },e => {
+        db.disconnect(client)
+        fail();
+    })
+  },
+ 
+  validateUser: function(username, password, success, fail) {
+    if(LOGGED_USERS.indexOf(username)>=0) {
+      success();
     } else {
       if (username == '' || password == '')
-        return;
-      return auth.validate(username, password);
+        fail();
+      let successCallback = function(obj){success()};
+      auth.validate(username, password, successCallback, fail);
     }
   },
 }
  
 // private method
 function genToken(user) {
-  var expires = expiresIn(7); // 7 days
+  var expires = expiresIn(1); // 1 day
   var token = jwt.encode({
     exp: expires,
     user: user

@@ -43,9 +43,8 @@ var router = express.Router();
  * Routes that can be accessed by any one
  */
 router.get('/prueba', function(req, res) {
-    console.log(db);
     var client = db.connect("agenda");
-    db.query('SELECT * FROM sla limit 1000', client, res2 => {
+    db.query('SELECT * FROM sla limit 0', client, res2 => {
         db.disconnect(client)
         res.send(res2.rows)
     },e => {
@@ -73,7 +72,7 @@ app.use(router);
 // app.use('/api/v1/', usuarioRoutersHandler);
 
 var server = require('http').createServer(app); 
-var io = require('socket.io')(server);
+// var io = require('socket.io')(server);
 
 var port = process.env.PORT||4000;
 
@@ -82,15 +81,15 @@ var serverInstance = server.listen(port, function() {
 	console.log("Node server running on port " + port);
 });
 
-io.on('connection', function(client) {  
-    console.log('Client connected...');
+// io.on('connection', function(client) {  
+//     console.log('Client connected...');
 
-    client.on('join', function(data) {
-        console.log(data);
-        client.emit('messages', 'Hello from server');
-    });
+//     client.on('join', function(data) {
+//         console.log(data);
+//         client.emit('messages', 'Hello from server');
+//     });
 
-});
+// });
 
 /*
 // DEJO COMENTADO EL JS REPORT USADO EN EL TP PROFESIONAL, PUEDE SER ÚTIL

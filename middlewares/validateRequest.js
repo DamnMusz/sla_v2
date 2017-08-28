@@ -40,7 +40,6 @@ module.exports = function(req, res, next) {
   //if(req.method == 'OPTIONS') next();
  
   var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
-  // var key = (req.body && req.body.x_key) || (req.query && req.query.x_key) || req.headers['x-key'];
 
   if(!token && req.headers['cookie']) {
     token = getCookie("access_token",req.headers['cookie']);
@@ -56,23 +55,24 @@ module.exports = function(req, res, next) {
         debugOrRedirect(400, "Sesion expirada", res, '/');
         return;
       }
- 
-      // Authorize the user to see if s/he can access our resources
-      var dbUser = validateUser(decoded.user.username, decoded.user.pass); // The key would be the logged in user's username
-      if (dbUser) { 
-        if ((req.url.indexOf('admin') >= 0 && dbUser.role == 'admin') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/v1/') >= 0)
-        || (req.url.indexOf('/app') >= 0)) {
+
+      let successCallback = function() {
+        if ((req.url.indexOf('/app') >= 0)) {
           next(); // To move to next middleware
         } else {
           debugOrRedirect(403, "Usuario no autorizado", res, '/');
           return;
         }
-      } else {
+      }
+
+      let failCallback = function() {
         // No user with this name exists, respond back with a 401
         debugOrRedirect(401, "Usuario no valido", res, '/');
         return;
       }
  
+      // Authorize the user to see if s/he can access our resources
+      validateUser(decoded.user.username, decoded.user.pass, successCallback, failCallback); // The key would be the logged in user's username
     } catch (err) {
       debugOrRedirect(500, "Oops algo salio mal", res, '/');
     }
