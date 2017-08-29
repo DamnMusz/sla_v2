@@ -57,7 +57,7 @@ module.exports = function(req, res, next) {
       }
 
       let successCallback = function() {
-        if ((req.url.indexOf('/app') >= 0)) {
+        if ((req.url.indexOf('/app') >= 0) || (req.url.indexOf('/api') >= 0)) {
           next(); // To move to next middleware
         } else {
           debugOrRedirect(403, "Usuario no autorizado", res, '/');

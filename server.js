@@ -42,9 +42,9 @@ var router = express.Router();
 /*
  * Routes that can be accessed by any one
  */
-router.get('/prueba', function(req, res) {
+router.get('/api/v1/prueba', function(req, res) {
     var client = db.connect("agenda");
-    db.query('SELECT * FROM sla limit 0', client, res2 => {
+    db.query('SELECT * FROM sla limit 10', client, res2 => {
         db.disconnect(client)
         res.send(res2.rows)
     },e => {
@@ -68,8 +68,8 @@ app.use(router);
 /*
  * Routes that can be accessed only by autheticated users (API routes)
  */
-// var usuarioRoutersHandler = require("./routersHandlers/usuarioRoutersHandler").getUsuarioRoutersHandler(express);
-// app.use('/api/v1/', usuarioRoutersHandler);
+var centrosRoutersHandler = require("./routersHandlers/centrosRoutersHandler").getCentrosRoutersHandler(express);
+app.use('/api/v1/', centrosRoutersHandler);
 
 var server = require('http').createServer(app); 
 // var io = require('socket.io')(server);

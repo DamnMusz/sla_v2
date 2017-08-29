@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'table-cmp',
+    selector: 'tbl-cmp',
     moduleId: module.id,
     templateUrl: 'table.component.html'
 })

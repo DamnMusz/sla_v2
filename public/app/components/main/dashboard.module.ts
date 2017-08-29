@@ -1,12 +1,32 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { MODULE_COMPONENTS, MODULE_ROUTES } from './dashboard.routes';
+import { Route, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { CentrosComponent } from './liquidacionCentros/centros.component';
+import { HomeComponent } from './home/home.component';
+import { SLAComponent } from './sla/sla.component';
+
+import { LiquidacionCentrosModule } from './liquidacionCentros/liqCentros.module';
 
 @NgModule({
     imports: [
-        RouterModule.forChild(MODULE_ROUTES)
+        LiquidacionCentrosModule,
+        CommonModule,
+        RouterModule.forChild(
+            [
+                { path: 'home', component: HomeComponent },
+                { path: 'liqCentros', component: CentrosComponent },
+                { path: '', redirectTo: 'home', pathMatch: 'full' }
+            ]
+        )
     ],
-    declarations: [ MODULE_COMPONENTS ]
+    declarations: [
+        HomeComponent,
+        SLAComponent,
+        CentrosComponent,
+    ],
+    // providers: [
+    //     TableComponent
+    // ]
 })
 
 export class DashboardModule{}

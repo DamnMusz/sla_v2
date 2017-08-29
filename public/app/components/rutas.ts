@@ -1,0 +1,1 @@
+export const URL_LISTA_CENTROS_FACTURACION = '/api/v1/centrosFacturacion';
