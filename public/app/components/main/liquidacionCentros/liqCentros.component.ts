@@ -14,10 +14,12 @@ import {URL_LISTA_CENTROS_FACTURACION} from '../../rutas';
 export class LiquidacionCentrosComponent{
     url_lista_centros = URL_LISTA_CENTROS_FACTURACION;
     tableTitle = 'Centros de Inspección';
+    isTableDataAvailable = false;
     tableData = [];
     buttonData = [
         {id: 0, nombre: "Centros", color: "btn-danger"},
         {id: 1, nombre: "Tarifas", color: "btn-primary"},
+        {id: 2, nombre: "Facturar", color: "btn-success"},
     ];
     vista = {
         centros: true,
@@ -25,10 +27,17 @@ export class LiquidacionCentrosComponent{
         facturar: false
     };
 
-    constructor(private liqCentrosService: LiqidacionCentrosServices) {}
-
-    ngOnInit() {
+    constructor(private liqCentrosService: LiqidacionCentrosServices) {
+      this.liqCentrosService.getCentrosFacturacion().subscribe(
+      (centrosData) => {
+          this.tableData = centrosData.slice(0);
+          this.isTableDataAvailable = true;
+      },
+      err => console.error("EL ERROR FUE: ", err)
+      );
     }
+
+    ngOnInit() {}
 
     getCentrosFacturacion() {
         return this.tableData;

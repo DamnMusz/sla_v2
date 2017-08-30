@@ -10,7 +10,7 @@ import {URL_LISTA_CENTROS_FACTURACION} from '../../rutas';
 export class LiqidacionCentrosServices{
   constructor(private http:Http) {}
 
-  // getCentrosFacturacion() {
-  //   return this.http.get(URL_LISTA_CENTROS_FACTURACION).map((response) => response.json());
-  // }
+  getCentrosFacturacion() {
+    return this.http.get(URL_LISTA_CENTROS_FACTURACION).map((response) => response.json());
+  }
 }

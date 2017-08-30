@@ -1,4 +1,4 @@
 <button-line-cmp [data]="buttonData" (selectionChanged)="handleSelection($event)"></button-line-cmp>
-<table-cmp [hidden]="!vista.centros" [title]="tableTitle" [data]="tableData" [url]="url_lista_centros"></table-cmp>
+<table-cmp *ngIf="isTableDataAvailable" [hidden]="!vista.centros" [title]="tableTitle" [data]="tableData" [url]="url_lista_centros" editableRows="true"></table-cmp>
 <h1 [hidden]="!vista.tarifas">Tarifas</h1>
 <h1 [hidden]="!vista.facturar">Facturar</h1>

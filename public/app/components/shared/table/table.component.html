@@ -8,6 +8,7 @@
             <table class="table table-hover">
                 <thead class="text-danger">
                     <tr>
+                        <th *ngIf="editableRows"></th>
                         <th *ngFor="let key of keys; let i = index">
                             {{key}}
                         </th>
@@ -15,6 +16,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let row of data">
+                        <td *ngIf="editableRows"><i class="material-icons">mode_edit</i></td>
                         <td *ngFor="let key of keys; let i = index">
                             {{row[key]}}
                         </td>
