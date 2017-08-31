@@ -23,10 +23,7 @@ import { LiquidacionCentrosModule } from './liquidacionCentros/liqCentros.module
         HomeComponent,
         SLAComponent,
         CentrosComponent,
-    ],
-    // providers: [
-    //     TableComponent
-    // ]
+    ]
 })
 
 export class DashboardModule{}

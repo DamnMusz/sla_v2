@@ -358,7 +358,6 @@
               }
               return;
             };
-            // This command is used to initialize some elements and make them work properly
             $.material.init();
             if(getCookie("access_token")) {
               console.log(getCookie("access_token"));
@@ -383,7 +382,7 @@
             success: function(msg){
               console.log(msg);
               document.cookie='access_token='+msg.token;
-              //document.cookie='key='+msg.user.username;
+              document.cookie='user='+msg.user.name + ' ' +msg.user.surname;
               window.location.replace("/app");
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {

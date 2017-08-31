@@ -39,9 +39,7 @@ app.all('/app/*', [require('./middlewares/validateRequest')]);
 // Index route
 var router = express.Router();
 
-/*
- * Routes that can be accessed by any one
- */
+/* Routes that can be accessed by any one */
 router.get('/api/v1/prueba', function(req, res) {
     var client = db.connect("agenda");
     db.query('SELECT * FROM sla limit 10', client, res2 => {
@@ -65,11 +63,11 @@ app.get('/app/*', function(req, res) {
 
 app.use(router);
 
-/*
- * Routes that can be accessed only by autheticated users (API routes)
- */
-var centrosRoutersHandler = require("./routersHandlers/centrosRoutersHandler").getCentrosRoutersHandler(express);
-app.use('/api/v1/', centrosRoutersHandler);
+/* Routes that can be accessed only by autheticated users (API routes) */
+app.use('/api/v1/', require("./routersHandlers/centrosRoutersHandler").getRouterHandler(express));
+app.use('/api/v1/', require("./routersHandlers/provinciaRoutersHandler").getRouterHandler(express));
+app.use('/api/v1/', require("./routersHandlers/localidadRoutersHandler").getRouterHandler(express));
+app.use('/api/v1/', require("./routersHandlers/afinidadTarifariaRoutersHandler").getRouterHandler(express));
 
 var server = require('http').createServer(app); 
 // var io = require('socket.io')(server);

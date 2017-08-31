@@ -42,15 +42,7 @@ var auth = {
   },
  
   validate: function(username, password, success, fail) {
-    // if(username != 'test')
-    //   fail();
     let successCallback = function(obj) {
-      // var dbUserObj = {
-      //     name: 'Damian Muszalski',
-      //     role: 'trd',
-      //     pass: 'lalala123',
-      //     username: 'test'
-      // };
       if(LOGGED_USERS.indexOf(obj.username)<0) {
         LOGGED_USERS.push(obj.username);
       }
@@ -109,6 +101,10 @@ function genToken(user) {
  
   return {
     token: token,
+    user: {
+      name: user.name,
+      surname: user.surname
+    },
     expires: expires
   };
 }

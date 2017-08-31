@@ -11,11 +11,13 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 export class NavbarComponent implements OnInit{
     private listTitles: any[];
     location: Location;
+    user: string = "Mi Sesión";
     constructor(location:Location) {
         this.location = location;
     }
     ngOnInit(){
         this.listTitles = ROUTES.filter(listTitle => listTitle);
+        this.user = this.getCookie('user');
     }
     getTitle(){
         var titlee = this.location.prepareExternalUrl(this.location.path());
@@ -27,8 +29,23 @@ export class NavbarComponent implements OnInit{
                 return this.listTitles[item].title;
             }
         }
-        return 'Dashboard';
+        return 'Principal';
     }
+
+    getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return '';
+    };
 
     delete_cookie(name) {
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';

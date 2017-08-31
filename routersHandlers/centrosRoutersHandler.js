@@ -1,7 +1,7 @@
 // Import controller
 var centrosFacturacionController = require("../controllers/centrosFacturacionController");
 
-exports.getCentrosRoutersHandler = function(express){
+exports.getRouterHandler = function(express){
 	var centrosRoutersHandler = express.Router();
 
 	centrosRoutersHandler.route('/centrosFacturacion')

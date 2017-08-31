@@ -5,22 +5,31 @@ import { HttpModule } from '@angular/http';
 import { LiquidacionCentrosComponent } from './liqCentros.component';
 import { TableComponent } from '../../shared/table/table.component';
 import { ButtonLineComponent } from '../../shared/buttonLine/buttonLine.component';
-import { LiqidacionCentrosServices } from './liqCentrosServices'
-import { DefaultServices } from '../../shared/defaultServices/defaultServices'
+import { DropdownComponent } from '../../shared/dropdown/dropdown.component';
+
+import { LiqidacionCentrosServices } from './liqCentrosServices';
+import { DefaultServices } from '../../shared/defaultServices/defaultServices';
+import { DropdownServices } from '../../shared/dropdown/dropdownServices';
+
 
 @NgModule({
-    imports: [ RouterModule, CommonModule, HttpModule ],
+    imports: [ 
+        RouterModule, 
+        CommonModule, 
+        HttpModule
+    ],
     declarations: [ 
         LiquidacionCentrosComponent, 
         TableComponent,
-        ButtonLineComponent
+        ButtonLineComponent,
+        DropdownComponent
     ],
     exports: [ LiquidacionCentrosComponent ],
     providers: [
         LiqidacionCentrosServices,
+        DropdownServices,
         DefaultServices
     ]
 })
 
-export class LiquidacionCentrosModule {
-}
+export class LiquidacionCentrosModule {}
