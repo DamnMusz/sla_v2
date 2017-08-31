@@ -12,6 +12,7 @@ exports.findAll = function(req, res) {
     db.query(queryString
         , client, dbRes => {
         console.log('GET/centros');
+        db.disconnect(client)
 		res.status(200).jsonp(dbRes.rows);
     },e => {
         db.disconnect(client)

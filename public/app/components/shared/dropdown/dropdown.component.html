@@ -8,9 +8,9 @@
 
 <div class="form-control" *ngIf="isDataAvailable">
     <a href="" class="dropdown-toggle" data-toggle="dropdown">
-    <button style="padding-right: 10px;" class="btn btn-danger btn-block"><i class="material-icons"></i> {{title}} <i style="padding-left: 20px;" class="material-icons pull-right">keyboard_arrow_down</i></button>
+    <button style="padding-right: 10px;" class="btn btn-danger btn-block"><i class="material-icons"></i> {{selectedItem?selectedItem.value:title}} <i style="padding-left: 20px;" class="material-icons pull-right">keyboard_arrow_down</i></button>
     </a>
     <ul class="dropdown-menu">
-        <li *ngFor="let item of values; let i = index"><a>{{item.value}}</a></li>
+        <li class="touchable" *ngFor="let item of values; let i = index" (click)="select(item)"><a>{{item.value}}</a></li>
     </ul>
 </div>

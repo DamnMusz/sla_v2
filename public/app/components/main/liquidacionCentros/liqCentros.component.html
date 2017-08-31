@@ -1,7 +1,42 @@
 <button-line-cmp [data]="buttonData" (selectionChanged)="handleSelection($event)"></button-line-cmp>
 <table-cmp 
     *ngIf="isTableDataAvailable" [hidden]="!vista.centros" [title]="tableTitle" [data]="tableData" [url]="url_lista_centros" editableRows="true"
-    editTitle="Editar Centro" [camposEdicion]="camposEdicion"
+    editTitle="Editar Centro" [camposEdicion]="camposEdicionCentro" [color]="'red'" [addItemOption]="true"
 ></table-cmp>
-<h1 [hidden]="!vista.tarifas">Tarifas</h1>
+<div [hidden]="!vista.tarifas">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header" data-background-color="purple">
+                <h4 class="title">Tarifas Disponibles</h4>
+            </div>
+            <div class="card-content table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-primary">
+                        <tr>
+                            <th>
+                                <button _ngcontent-c4="" class="btn btn-primary btn-simple btn-sm" rel="tooltip" title="Crear Nueva Tarifa" type="button">
+                                    <i _ngcontent-c4="" class="material-icons">add</i>
+                                     Nueva Tarifa
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr><td>Tarifa 1</td></tr>
+                            <tr><td>Tarifa 2</td></tr>
+                            <tr><td>Tarifa 3</td></tr>
+                            <tr><td>Tarifa 4</td></tr>
+                            <tr><td>Tarifa 5</td></tr>
+                            <tr><td>Tarifa 6</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        <table-cmp 
+            *ngIf="isTableDataAvailable" [title]="'Tarifario'" [data]="tarifarioData" editableRows="false" [color]="'purple'"
+            editTitle="Editar Tarifa" [camposEdicion]="camposEdicionTarifas" [addItemOption]="false"
+        ></table-cmp>
+</div>
+
 <h1 [hidden]="!vista.facturar">Facturar</h1>

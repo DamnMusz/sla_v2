@@ -1,4 +1,4 @@
-export var edicionCentro = {
+export var creacionCentro = {
     types: {
         nombre_fantasia: 'text',
         cuit: 'number',
@@ -15,11 +15,10 @@ export var edicionCentro = {
             type: 'select',
             url_get: 'afinidadTarifaria'
         },
+        propio: 'boolean',
         calle: 'text',
         numero: 'number',
-        tipo_factura: 'text',
-        id_centro_agenda: 'number',
-        propio: 'boolean'
+        tipo_factura: 'text'
     },
     text: {
         nombre_fantasia: 'Nombre Fantasía',
@@ -28,10 +27,9 @@ export var edicionCentro = {
         provincia: 'Provincia',
         localidad: 'Localidad',
         afinidad: 'Afinidad Tarifaria',
+        propio: 'Propio',
         calle: 'Calle',
         numero: 'Nro.',
-        tipo_factura: 'Tipo de Factura',
-        id_centro_agenda: 'Id Agenda',
-        propio: 'Propio',
+        tipo_factura: 'Tipo de Factura'
     }    
 }

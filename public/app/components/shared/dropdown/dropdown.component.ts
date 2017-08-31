@@ -11,18 +11,10 @@ export class DropdownComponent{
     @Input() title:string;
     @Input() url: string;
     isDataAvailable:boolean = false;
-    values = [
-        {id: 0, value: "Buenos Aires"},
-        {id: 1, value: "Capital Federal"},
-        {id: 2, value: "Santa Fe"},
-        {id: 3, value: "Córdoba"},
-        {id: 4, value: "Santa Cruz"},
-    ]
+    values = [];
+    selectedItem;
     
-    constructor(private service: DropdownServices) {
-        
-    
-    }
+    constructor(private service: DropdownServices) {}
 
     ngOnInit(){
         this.service.getData(this.url).subscribe(
@@ -32,5 +24,9 @@ export class DropdownComponent{
             },
             err => console.error("EL ERROR FUE: ", err)
         );
+    }
+
+    select(item) {
+        this.selectedItem = item;
     }
 }

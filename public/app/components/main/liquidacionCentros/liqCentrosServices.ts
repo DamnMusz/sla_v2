@@ -10,7 +10,7 @@ import {URL_LISTA_CENTROS_FACTURACION} from '../../rutas';
 export class LiqidacionCentrosServices{
   constructor(private http:Http) {}
 
-  getCentrosFacturacion() {
+  getCentrosFacturacion(): Observable<any> {
     return this.http.get(URL_LISTA_CENTROS_FACTURACION).map((response) => response.json());
   }
 }

@@ -1,6 +1,7 @@
 .touchable {
     cursor: pointer;
 }
+
 .swal2-show {
     -webkit-animation: showSweetAlert .3s;
     animation: showSweetAlert .3s;
@@ -22,7 +23,7 @@
 
 .swal2-container.swal2-shown {
     background-color: rgba(0,0,0,.4);
-    overflow-y: auto;
+    height: 1000%;
 }
 .swal2-container.swal2-fade {
     transition: background-color .1s;

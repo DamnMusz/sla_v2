@@ -10,7 +10,7 @@ import {URL_BASE} from '../../rutas';
 export class DropdownServices {
   constructor(private http:Http) {}
 
-  getData(URL) {
+  getData(URL): Observable<any> {
     return this.http.get(URL_BASE+URL).map((response) => response.json());
   }
 }
