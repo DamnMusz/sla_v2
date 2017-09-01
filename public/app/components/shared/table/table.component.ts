@@ -15,41 +15,91 @@ export class TableComponent {
     @Input() title:string;
     @Input() subtitle:string;
     @Input() data:any;
-    @Input() url:any;
+    @Input() urlGet:any;
+    @Input() urlPost:any;
     @Input() editableRows:boolean = false;
     @Input() editTitle: string = "Editar";
+    @Input() createTitle: string = "Crear Nuevo";
     @Input() camposEdicion;
+    @Input() camposCreacion;
     @Input() color;
     @Input() addItemOption:boolean = false;
-    @Input() exportable:boolean = true;
+    @Input() exportableOption:boolean = true;
     public keys:string[];
     public keysEdicion:string[];
-    showModal:boolean = true;
+    public keysCreacion:string[];
+    showModalEdicion:boolean = false;
+    showModalCreacion:boolean = false;
     isDataAvailable: boolean = false;
     reverseSort = false;
+    createData = { example: '' };
 
     constructor(private defaultService: DefaultServices) {}
 
     ngOnInit() {
-        if(this.data && this.data.length > 0)
-            this.keys = Object.keys(this.data[0]);
-        else
-            this.keys = [];
-        if(this.camposEdicion.text)
-            this.keysEdicion = Object.keys(this.camposEdicion.text);
-        else
-            this.keysEdicion = [];
-        this.isDataAvailable = true
-    }
-    
-    toogleModal(event) {
-        if (event.currentTarget === event.target) {
-            this.showModal= !this.showModal;        
+        if(this.urlGet) {
+            this.defaultService.getData(this.urlGet).subscribe(
+                (data) => {
+                    this.data = data.splice(0);
+                    if(this.data && this.data.length > 0)
+                        this.keys = Object.keys(this.data[0]);
+                    else
+                        this.keys = [];
+                    if(this.camposEdicion && this.camposEdicion.text)
+                        this.keysEdicion = Object.keys(this.camposEdicion.text);
+                    else
+                        this.keysEdicion = [];
+                    if(this.camposCreacion && this.camposCreacion.text)
+                        this.keysCreacion = Object.keys(this.camposCreacion.text);
+                    else
+                        this.keysCreacion = [];
+                    this.isDataAvailable = true
+                },
+                err => console.error("EL ERROR FUE: ", err)
+            );
+        } else {
+            if(this.data && this.data.length > 0)
+                this.keys = Object.keys(this.data[0]);
+            else
+                this.keys = [];
+            if(this.camposEdicion && this.camposEdicion.text)
+                this.keysEdicion = Object.keys(this.camposEdicion.text);
+            else
+                this.keysEdicion = [];
+            if(this.camposCreacion && this.camposCreacion.text)
+                this.keysCreacion = Object.keys(this.camposCreacion.text);
+            else
+                this.keysCreacion = [];
+            this.isDataAvailable = true
         }
     }
 
-    isCombo(key) {
-        return (typeof this.camposEdicion.types[key] == 'object' && this.camposEdicion.types[key].type == 'select')
+    toogleModal(event, accion) {
+        if (event.currentTarget === event.target) {
+            if(accion=='editar')
+                this.showModalEdicion= !this.showModalEdicion;
+            if(accion=='crear')        
+                this.showModalCreacion= !this.showModalCreacion;
+        }
+    }
+
+    crear(event) {
+        if(this.urlPost) {
+            this.defaultService.postJsonData(this.urlPost, this.createData).subscribe(
+                () => {
+                    alert("Creada Tarifa");
+                },
+                err => console.error("EL ERROR FUE: ", err)
+            );
+            this.toogleModal(event, 'crear');
+        }
+    }
+    editar(event) {
+        this.toogleModal(event, 'editar');
+    }
+
+    isCombo(item) {
+        return (typeof item == 'object' && item.type == 'select')
     }
 
     getColor() {

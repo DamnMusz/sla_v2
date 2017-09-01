@@ -1,11 +1,11 @@
 // Import controller
-var centrosFacturacionController = require("../controllers/centrosFacturacionController");
+var controller = require("../controllers/facturacion/centrosFacturacionController");
 
-exports.getRouterHandler = function(express){
-	var centrosRoutersHandler = express.Router();
+exports.getRoutesHandler = function(express){
+	var routesHandler = express.Router();
 
-	centrosRoutersHandler.route('/centrosFacturacion')
-	  .get(centrosFacturacionController.findAll);
+	routesHandler.route('/centrosFacturacion')
+	  .get(controller.findAll);
 	  
-	return centrosRoutersHandler;  
+	return routesHandler;  
 }

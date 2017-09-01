@@ -1,11 +1,11 @@
 // Import controller
-var localidadController = require("../controllers/localidadController");
+var controller = require("../controllers/localidadController");
 
-exports.getRouterHandler = function(express){
-	var localidadRoutersHandler = express.Router();
+exports.getRoutesHandler = function(express){
+	var routesHandler = express.Router();
 
-	localidadRoutersHandler.route('/localidad')
-	  .get(localidadController.findAll);
+	routesHandler.route('/localidad')
+	  .get(controller.findAll);
 	  
-	return localidadRoutersHandler;  
+	return routesHandler;  
 }

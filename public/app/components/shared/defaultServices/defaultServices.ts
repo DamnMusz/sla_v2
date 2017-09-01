@@ -4,14 +4,21 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import {URL_BASE} from '../../rutas';
 import {URL_EXPORT_XLS} from '../../rutas';
 
 @Injectable()
 export class DefaultServices{
   constructor(private http:Http) {}
 
-  getCentrosFacturacion(URL:string): Observable<any> {
+  getData(URL): Observable<any> {
     return this.http.get(URL).map((response) => response.json());
+  }
+
+  postJsonData(URL:string, data:any): Observable<any> {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(URL, data, {headers: headers});
   }
 
   postGenerateXLS(json: Object): Observable<Response> {

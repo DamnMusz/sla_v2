@@ -64,10 +64,11 @@ app.get('/app/*', function(req, res) {
 app.use(router);
 
 /* Routes that can be accessed only by autheticated users (API routes) */
-app.use('/api/v1/', require("./routersHandlers/centrosRoutersHandler").getRouterHandler(express));
-app.use('/api/v1/', require("./routersHandlers/provinciaRoutersHandler").getRouterHandler(express));
-app.use('/api/v1/', require("./routersHandlers/localidadRoutersHandler").getRouterHandler(express));
-app.use('/api/v1/', require("./routersHandlers/afinidadTarifariaRoutersHandler").getRouterHandler(express));
+app.use('/api/v1/', require("./routersHandlers/centrosRoutersHandler").getRoutesHandler(express));
+app.use('/api/v1/', require("./routersHandlers/provinciaRoutersHandler").getRoutesHandler(express));
+app.use('/api/v1/', require("./routersHandlers/localidadRoutersHandler").getRoutesHandler(express));
+app.use('/api/v1/', require("./routersHandlers/afinidadTarifariaRoutersHandler").getRoutesHandler(express));
+app.use('/api/v1/', require("./routersHandlers/tarifaRoutersHandler").getRoutesHandler(express));
 
 var server = require('http').createServer(app); 
 // var io = require('socket.io')(server);

@@ -55,4 +55,9 @@ export class NavbarComponent implements OnInit{
         this.delete_cookie('access_token');
         window.location.replace("/");
     }
+
+
+    alert(str) {
+        alert(str);
+    }
 }

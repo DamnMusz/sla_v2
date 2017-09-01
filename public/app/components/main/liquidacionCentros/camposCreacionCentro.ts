@@ -18,7 +18,8 @@ export var creacionCentro = {
         propio: 'boolean',
         calle: 'text',
         numero: 'number',
-        tipo_factura: 'text'
+        tipo_factura: 'text',
+        id_centro_agenda: 'number'
     },
     text: {
         nombre_fantasia: 'Nombre Fantasía',
@@ -30,6 +31,7 @@ export var creacionCentro = {
         propio: 'Propio',
         calle: 'Calle',
         numero: 'Nro.',
-        tipo_factura: 'Tipo de Factura'
+        tipo_factura: 'Tipo de Factura',
+        id_centro_agenda: 'Id Agenda'
     }    
 }

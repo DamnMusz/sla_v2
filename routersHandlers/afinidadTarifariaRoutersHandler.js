@@ -1,11 +1,11 @@
 // Import controller
-var afinidadTarifariaController = require("../controllers/afinidadTarifariaController");
+var controller = require("../controllers/afinidadTarifariaController");
 
-exports.getRouterHandler = function(express){
-	var afinidadTarifariaRoutersHandler = express.Router();
+exports.getRoutesHandler = function(express){
+	var routesHandler = express.Router();
 
-	afinidadTarifariaRoutersHandler.route('/afinidadTarifaria')
-	  .get(afinidadTarifariaController.findAll);
+	routesHandler.route('/afinidadTarifaria')
+	  .get(controller.findAll);
 	  
-	return afinidadTarifariaRoutersHandler;  
+	return routesHandler;  
 }

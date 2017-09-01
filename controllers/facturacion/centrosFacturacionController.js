@@ -1,4 +1,4 @@
-var db = require('../config_db').db;
+var db = require('../../config_db').db;
 var TIPO_CENTRO = 0;
 
 exports.findAll = function(req, res) {

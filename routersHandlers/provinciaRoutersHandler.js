@@ -1,11 +1,11 @@
 // Import controller
-var provinciaController = require("../controllers/provinciaController");
+var controller = require("../controllers/provinciaController");
 
-exports.getRouterHandler = function(express){
-	var provinciaRoutersHandler = express.Router();
+exports.getRoutesHandler = function(express){
+	var routesHandler = express.Router();
 
-	provinciaRoutersHandler.route('/provincia')
-	  .get(provinciaController.findAll);
+	routesHandler.route('/provincia')
+	  .get(controller.findAll);
 	  
-	return provinciaRoutersHandler;  
+	return routesHandler;  
 }

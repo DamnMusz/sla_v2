@@ -10,6 +10,7 @@ import { DropdownServices } from './dropdownServices'
 export class DropdownComponent{
     @Input() title:string;
     @Input() url: string;
+    @Input() data: object[];
     isDataAvailable:boolean = false;
     values = [];
     selectedItem;
@@ -17,13 +18,15 @@ export class DropdownComponent{
     constructor(private service: DropdownServices) {}
 
     ngOnInit(){
-        this.service.getData(this.url).subscribe(
-            (data) => {
-                this.values = data.slice(0);
-                this.isDataAvailable = true;
-            },
-            err => console.error("EL ERROR FUE: ", err)
-        );
+        if(this.url && this.url != '') {
+            this.service.getData(this.url).subscribe(
+                (data) => {
+                    this.values = data.slice(0);
+                    this.isDataAvailable = true;
+                },
+                err => console.error("EL ERROR FUE: ", err)
+            );
+        }
     }
 
     select(item) {
