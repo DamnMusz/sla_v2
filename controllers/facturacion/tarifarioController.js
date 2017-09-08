@@ -1,10 +1,30 @@
 var db = require('../../config_db').db;
+var uppercase = require('../../config_db').db_uppercase;
 var TIPO_CENTRO = 0;
 
-exports.createTarifa = function(req, res) {
+exports.addTarifa = function(req, res) {
     console.log('POST/tarifa');
     console.log(req.body);
-    res.status(200).send();   
+
+    if(!req.body.monto || !req.body.nombre)
+        res.send(500);
+
+    var client = db.connect("agenda");
+    const queryString =
+     'INSERT INTO facturacion_tarifa('
+     +'tarifa_por_inspeccion,nombre) VALUES($1,$2) RETURNING *'
+    const values = []
+    values.push(req.body.monto);
+    values.push(uppercase(req.body.nombre));
+
+    client.query(queryString, values, dbRes => {
+        db.disconnect(client)
+        res.status(200).send(db.rows);
+    },e => {
+        db.disconnect(client)
+        console.log(err.message);
+        res.send(500, err.message);
+    })
 }
 
 exports.getTarifario = function(req, res) {
@@ -76,23 +96,15 @@ exports.getTarifario = function(req, res) {
 
 exports.findAllTarifas = function(req, res) {
     console.log('GET/tarifa');
-    // var client = db.connect("agenda");
-    // var queryString = 'SELECT "Provincias_Id" as id, "Provincias_Nombre" as value FROM "Provincias" ORDER BY "Provincias_Nombre" ASC';
-    // db.query(queryString
-    //     , client, dbRes => {
-    //     console.log('GET/provincia');
-    //     db.disconnect(client)
-	// 	res.status(200).json(dbRes.rows);
-    // },e => {
-    //     db.disconnect(client)
-    //     res.send(500, err.message);
-    // })
-    var result = [
-        {'Tarifas': 'Tarifa1'},
-        {'Tarifas': 'Tarifa2'},
-        {'Tarifas': 'Tarifa3'},
-        {'Tarifas': 'Tarifa4'},
-        {'Tarifas': 'Tarifa5'},
-    ]
-    res.status(200).jsonp(result);
+    var client = db.connect("agenda");
+    var queryString = 'SELECT nombre as "Nombre Tarifa", \'$\'||tarifa_por_inspeccion as "Monto", to_char(fecha_creacion, \'DD Mon YYYY\') as "Creada" FROM facturacion_tarifa ORDER BY fecha_creacion DESC';
+    db.query(queryString
+        , client, dbRes => {
+        console.log('GET/tarifa');
+        db.disconnect(client)
+		res.status(200).json(dbRes.rows);
+    },e => {
+        db.disconnect(client)
+        res.send(500, err.message);
+    })
 };

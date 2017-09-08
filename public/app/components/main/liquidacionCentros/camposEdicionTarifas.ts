@@ -1,35 +1,22 @@
+import {URL_TARIFA} from '../../rutas';
 export var edicionTarifas = {
     types: {
-        afinidad: {
+        tarifas: {
             type: 'select',
-            url_get: 'afinidadTarifaria'
+            url_get: URL_TARIFA
         },
-        '01/2016': 'text',
-        '02/2016': 'text',
-        '03/2016': 'text',
-        '04/2016': 'text',
-        '05/2016': 'text',
-        '06/2016': 'text',
-        '07/2016': 'text',
-        '08/2016': 'text',
-        '09/2016': 'text',
-        '10/2016': 'text',
-        '11/2016': 'text',
-        '12/2016': 'text'
+        desde: {
+            type: 'select',
+            url_get: ''
+        },
+        hasta: {
+            type: 'select',
+            url_get: ''
+        }
     },
     text: {
-        afinidad: 'Afinidad Tarifaria',
-        '01/2016': '01/2016',
-        '02/2016': '02/2016',
-        '03/2016': '03/2016',
-        '04/2016': '04/2016',
-        '05/2016': '05/2016',
-        '06/2016': '06/2016',
-        '07/2016': '07/2016',
-        '08/2016': '08/2016',
-        '09/2016': '09/2016',
-        '10/2016': '10/2016',
-        '11/2016': '11/2016',
-        '12/2016': '12/2016'
+        tarifas: 'Tarifas',
+        desde: 'Desde',
+        hasta: 'Hasta',
     }    
 }

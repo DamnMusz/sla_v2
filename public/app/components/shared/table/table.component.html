@@ -12,9 +12,9 @@
                             <button *ngIf="addItemOption"  _ngcontent-c4="" class="btn btn-simple btn-sm" 
                             [ngClass]='buttonType()'
                              (click)="toogleModal($event,'crear')"
-                            rel="tooltip" title="Crear Nuevo" type="button">
+                            rel="tooltip" [attr.title]="createTitleTooltip?createTitleTooltip:createTitle" type="button">
                                 <i _ngcontent-c4="" class="material-icons">add</i>
-                                    Crear Nuevo
+                                    {{createTitle}}
                             </button>
                             <button *ngIf="exportableOption" _ngcontent-c4="" class="btn btn-simple btn-sm" 
                             [ngClass]='buttonType()'
@@ -34,7 +34,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let row of data">
-                        <td *ngIf="editableRows" style="width: 50px!important"><i class="material-icons touchable" (click)="toogleModal($event, 'editar')">mode_edit</i></td>
+                        <td *ngIf="editableRows" style="width: 50px!important"><i class="material-icons touchable" (click)="toogleModal($event, 'editar', row)">mode_edit</i></td>
                         <td *ngFor="let key of keys; let i = index">
                             {{row[key]}}
                         </td>
@@ -45,26 +45,28 @@
         </div>
     </div>
 </div>
-<div *ngIf="isDataAvailable" class="swal2-container swal2-fade swal2-shown" [ngClass]="{'hidden': showModalEdicion==false}" style="overflow-y: auto;" (click)="toogleModal($event,'editar')">
+<div *ngIf="camposEdicion && isDataAvailable" class="swal2-container swal2-fade swal2-shown" [ngClass]="{'hidden': showModalEdicion==false}" style="overflow-y: auto;" (click)="toogleModal($event,'editar')">
     <div role="dialog" aria-labelledby="modalTitleId" aria-describedby="modalContentId" class="swal2-modal swal2-show" tabindex="-1"
         style="width: 80%; padding: 20px; background: rgb(255, 255, 255); display: block; min-height: 263px;">
         <h2 class="swal2-title" id="modalTitleId">{{editTitle}}</h2>
         <div id="modalContentId" class="swal2-content" style="display: block;">
             <div class="row">
                 <div class="col-xs-12 col-md-6 col-lg-4 pull-left" *ngFor="let key of keysEdicion; let i = index">
-                    <div *ngIf="!isCombo(camposEdicion.types[key]) && camposEdicion.types[key] != 'boolean'" class="form-group form-black label-floating is-empty" >
+                    <div *ngIf="!isCombo(camposEdicion.types[key]) && camposEdicion.types[key] != 'boolean'" class="form-group form-black label-floating" [ngClass]="{'is-empty': !editData[key]}" >
                         <label class="control-label">{{camposEdicion.text[key]}}</label>
-                        <input [attr.type]="camposEdicion.types[key]" class="form-control" style="text-transform:uppercase" >
+                        <input [attr.type]="camposEdicion.types[key]" class="form-control" style="text-transform:uppercase" [(ngModel)]="editData[key]">
                     </div>
                     <div *ngIf="!isCombo(camposEdicion.types[key]) && camposEdicion.types[key] == 'boolean'" class="form-group form-black" style="margin-top: 25px; margin-bottom: 10px">
                         <div class="checkbox">
                             <label>
-                                <input name="optionsCheckboxes" type="checkbox"><span class="checkbox-material"></span> {{camposEdicion.text[key]}}
+                                <input name="optionsCheckboxes" type="checkbox" [(ngModel)]="editData[key]"><span class="checkbox-material"></span> {{camposEdicion.text[key]}}
                             </label>
                         </div>
                     </div>
                     <div class="form-group form-black" *ngIf="isCombo(camposEdicion.types[key])" style="margin-top: 10px; margin-bottom: 17px">
-                        <dropdown-cmp *ngIf="isCombo(camposEdicion.types[key])" title="{{camposEdicion.text[key]}}" url="{{camposEdicion.types[key].url_get}}"></dropdown-cmp>
+                        <dropdown-cmp *ngIf="isCombo(camposEdicion.types[key])" [id]="key" 
+                        [title]="camposEdicion.text[key]" [url]="camposEdicion.types[key].url_get"
+                        (selectionChanged)="handleSelection($event, 'editar')" [selectedItem]="this.editData[key]"></dropdown-cmp>
                     </div>
                 </div>
             </div> 
@@ -85,17 +87,20 @@
                 <div class="col-xs-12 col-md-6 col-lg-4 pull-left" *ngFor="let key of keysCreacion; let i = index">
                     <div *ngIf="!isCombo(camposCreacion.types[key]) && camposCreacion.types[key] != 'boolean'" class="form-group form-black label-floating is-empty" >
                         <label class="control-label">{{camposCreacion.text[key]}}</label>
-                        <input [attr.type]="camposCreacion.types[key]" class="form-control" style="text-transform:uppercase">
+                        <input [attr.type]="camposCreacion.types[key]" class="form-control" style="text-transform:uppercase" [(ngModel)]="createData[key]">
                     </div>
                     <div *ngIf="!isCombo(camposCreacion.types[key]) && camposCreacion.types[key] == 'boolean'" class="form-group form-black" style="margin-top: 25px; margin-bottom: 10px">
                         <div class="checkbox">
                             <label>
-                                <input name="optionsCheckboxes" type="checkbox"><span class="checkbox-material"></span> {{camposCreacion.text[key]}}
+                                <input name="optionsCheckboxes" type="checkbox" [(ngModel)]="createData[key]"><span class="checkbox-material"></span> {{camposCreacion.text[key]}}
                             </label>
                         </div>
                     </div>
                     <div class="form-group form-black" *ngIf="isCombo(camposCreacion.types[key])" style="margin-top: 10px; margin-bottom: 17px">
-                        <dropdown-cmp *ngIf="isCombo(camposCreacion.types[key])" title="{{camposCreacion.text[key]}}" url="{{camposCreacion.types[key].url_get}}"></dropdown-cmp>
+                        <dropdown-cmp *ngIf="isCombo(camposCreacion.types[key])" [id]="key"
+                        [title]="camposCreacion.text[key]" [url]="camposCreacion.types[key].url_get"
+                        (selectionChanged)="handleSelection($event, 'crear')"></dropdown-cmp>
+                        
                     </div>
                 </div>
             </div> 

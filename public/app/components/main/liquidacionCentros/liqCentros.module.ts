@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 import { LiquidacionCentrosComponent } from './liqCentros.component';
 import { TableComponent } from '../../shared/table/table.component';
 import { ButtonLineComponent } from '../../shared/buttonLine/buttonLine.component';
@@ -16,7 +18,9 @@ import { DropdownServices } from '../../shared/dropdown/dropdownServices';
     imports: [ 
         RouterModule, 
         CommonModule, 
-        HttpModule
+        HttpModule,
+        BrowserModule,
+        FormsModule
     ],
     declarations: [ 
         LiquidacionCentrosComponent, 

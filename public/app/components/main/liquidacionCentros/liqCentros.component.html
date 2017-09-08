@@ -1,15 +1,17 @@
 <button-line-cmp [data]="buttonData" (selectionChanged)="handleSelection($event)"></button-line-cmp>
 <table-cmp [hidden]="!vista.centros" 
-    [title]="tableTitle" [data]="tableData" [editableRows]="true" [urlGet]="listaCentrosURL"
-    editTitle="Editar Centro" [camposEdicion]="camposEdicionCentro" [color]="'red'" [addItemOption]="true" [camposCreacion]="camposCreacionCentro" [createTitle]="'Crear Centro'"
+    [title]="tableTitle" [data]="tableData" [editableRows]="true" [urlGet]="listaCentrosURL" [urlPost]="listaCentrosURL"
+    editTitle="Editar Centro" [camposEdicion]="camposEdicionCentro" [color]="'red'" [addItemOption]="true" [camposCreacion]="camposCreacionCentro"
+    [createTitle]="'Crear Centro'" [createTitleTooltip]="'Agregar Nuevo Centro'"
 ></table-cmp>
 <table-cmp [hidden]="!vista.tarifas"
     [title]="'Tarifas Disponibles'" [editableRows]="false" [color]="'purple'"
-    createTitle="Crear Tarifa" [camposCreacion]="camposCreacionTarifas" [addItemOption]="true" [urlGet]="tarifaURL" [urlPost]="tarifaURL"
+    [createTitle]="'Crear Tarifa'" [createTitleTooltip]="'Agregar Nueva Tarifa'" [camposCreacion]="camposCreacionTarifas" [addItemOption]="true"
+    [urlGet]="tarifaURL" [urlPost]="tarifaURL"
 ></table-cmp>
 <table-cmp [hidden]="!vista.tarifas"
     [title]="'Tarifario'" [editableRows]="true" [color]="'purple'"
-    editTitle="Editar Tarifa" [camposEdicion]="camposEdicionTarifas" [addItemOption]="false" [urlGet]="tarifarioURL"
+    [editTitle]="'Editar Tarifa'" [camposEdicion]="camposEdicionTarifas" [addItemOption]="false" [urlGet]="tarifarioURL"
 ></table-cmp>
 
 <h1 [hidden]="!vista.facturar">Facturar</h1>

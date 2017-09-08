@@ -1,3 +1,6 @@
+import {URL_PROVINCIA} from '../../rutas';
+import {URL_LOCALIDAD} from '../../rutas';
+import {URL_AFINIDAD_TARIFARIA} from '../../rutas';
 export var creacionCentro = {
     types: {
         nombre_fantasia: 'text',
@@ -5,21 +8,23 @@ export var creacionCentro = {
         razon_social: 'text',
         provincia: {
             type: 'select',
-            url_get: 'provincia'
+            url_get: URL_PROVINCIA,
+            on_change_field: 'localidad',
+            on_change_value_set: URL_LOCALIDAD
         },
         localidad: {
             type: 'select',
-            url_get: 'localidad'
+            url_get: ''
         },
         afinidad: {
             type: 'select',
-            url_get: 'afinidadTarifaria'
+            url_get: URL_AFINIDAD_TARIFARIA
         },
-        propio: 'boolean',
         calle: 'text',
         numero: 'number',
         tipo_factura: 'text',
-        id_centro_agenda: 'number'
+        propio: 'boolean',
+        // id_centro_agenda: 'number'
     },
     text: {
         nombre_fantasia: 'Nombre Fantasía',
@@ -28,10 +33,10 @@ export var creacionCentro = {
         provincia: 'Provincia',
         localidad: 'Localidad',
         afinidad: 'Afinidad Tarifaria',
-        propio: 'Propio',
         calle: 'Calle',
         numero: 'Nro.',
         tipo_factura: 'Tipo de Factura',
-        id_centro_agenda: 'Id Agenda'
+        propio: 'Propio',
+        // id_centro_agenda: 'Id Agenda'
     }    
 }

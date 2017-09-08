@@ -20,6 +20,7 @@ export class TableComponent {
     @Input() editableRows:boolean = false;
     @Input() editTitle: string = "Editar";
     @Input() createTitle: string = "Crear Nuevo";
+    @Input() createTitleTooltip: string;
     @Input() camposEdicion;
     @Input() camposCreacion;
     @Input() color;
@@ -32,31 +33,23 @@ export class TableComponent {
     showModalCreacion:boolean = false;
     isDataAvailable: boolean = false;
     reverseSort = false;
-    createData = { example: '' };
+    createData:any = {};
+    editData:any = {};
 
     constructor(private defaultService: DefaultServices) {}
 
     ngOnInit() {
+        this.init();
+    }
+
+    init() {
+        this.showModalEdicion = false;
+        this.showModalCreacion = false;
+        this.reverseSort = false;
+        this.createData = {};
+        this.editData = {};
         if(this.urlGet) {
-            this.defaultService.getData(this.urlGet).subscribe(
-                (data) => {
-                    this.data = data.splice(0);
-                    if(this.data && this.data.length > 0)
-                        this.keys = Object.keys(this.data[0]);
-                    else
-                        this.keys = [];
-                    if(this.camposEdicion && this.camposEdicion.text)
-                        this.keysEdicion = Object.keys(this.camposEdicion.text);
-                    else
-                        this.keysEdicion = [];
-                    if(this.camposCreacion && this.camposCreacion.text)
-                        this.keysCreacion = Object.keys(this.camposCreacion.text);
-                    else
-                        this.keysCreacion = [];
-                    this.isDataAvailable = true
-                },
-                err => console.error("EL ERROR FUE: ", err)
-            );
+            this.loadURLData();
         } else {
             if(this.data && this.data.length > 0)
                 this.keys = Object.keys(this.data[0]);
@@ -74,28 +67,102 @@ export class TableComponent {
         }
     }
 
-    toogleModal(event, accion) {
+    loadURLData() {
+        this.defaultService.getData(this.urlGet).subscribe(
+            (data) => {
+                this.data = data.splice(0);
+                if(this.data && this.data.length > 0)
+                    this.keys = Object.keys(this.data[0]);
+                else
+                    this.keys = [];
+                if(this.camposEdicion && this.camposEdicion.text)
+                    this.keysEdicion = Object.keys(this.camposEdicion.text);
+                else
+                    this.keysEdicion = [];
+                if(this.camposCreacion && this.camposCreacion.text)
+                    this.keysCreacion = Object.keys(this.camposCreacion.text);
+                else
+                    this.keysCreacion = [];
+                this.isDataAvailable = true
+            },
+            err => console.error("EL ERROR FUE: ", err)
+        );
+    }
+
+    handleSelection(event, modo) {
+        if(modo=='crear') {
+            this.createData[event.src] = event.value.id;
+            var changeField = this.camposCreacion.types[event.src].on_change_field;
+            if(!changeField) return;
+            this.camposCreacion.types[changeField].url_get = this.camposCreacion.types[event.src].on_change_value_set+'?'+event.src+'='+event.value.id;
+        }
+        if(modo=='editar') {
+            this.editData[event.src] = event.value.id;
+            var changeField = this.camposEdicion.types[event.src].on_change_field;
+            if(!changeField) return;
+            this.camposEdicion.types[changeField].url_get = this.camposEdicion.types[event.src].on_change_value_set+'?'+event.src+'='+event.value.id;
+        }
+    }
+
+    toogleModal(event, accion, row = undefined) {
         if (event.currentTarget === event.target) {
-            if(accion=='editar')
+            if(accion=='editar') {
+                if(row && row.Id) {
+                    var keys = Object.keys(row);
+                    var keysInverse = Object.keys(this.camposEdicion.text);
+                    
+                    this.defaultService.getData(this.urlGet+'/'+row.Id).subscribe(
+                        (data) => {
+                            keys.forEach(key => {
+                                keysInverse.forEach(keyInv => {
+                                    if(key == this.camposEdicion.text[keyInv])
+                                        this.editData[keyInv] = data[0][key];
+                                });
+                            });
+                            this.editData.id = row.Id;           
+                        },
+                        err => console.error("EL ERROR FUE: ", err)
+                    );
+                }
                 this.showModalEdicion= !this.showModalEdicion;
-            if(accion=='crear')        
+            }
+            if(accion=='crear') {
                 this.showModalCreacion= !this.showModalCreacion;
+            }
         }
     }
 
     crear(event) {
         if(this.urlPost) {
             this.defaultService.postJsonData(this.urlPost, this.createData).subscribe(
-                () => {
-                    alert("Creada Tarifa");
+                (res) => {
+                    alert("Alta exitosa");
+                    this.init();
                 },
-                err => console.error("EL ERROR FUE: ", err)
+                err => {
+                    alert("Error al crear el objeto");
+                    console.error("EL ERROR FUE: ", err)
+                }
             );
             this.toogleModal(event, 'crear');
         }
     }
     editar(event) {
-        this.toogleModal(event, 'editar');
+        if(this.urlPost) {
+            this.defaultService.putJsonData(this.urlPost, this.editData).subscribe(
+                (res) => {
+                    alert("Modificación exitosa");
+                    this.init();
+                },
+                err => {
+                    alert("Error al crear el objeto");
+                    console.error("EL ERROR FUE: ", err)
+                }
+            );
+            this.toogleModal(event, 'editar');
+        }
+        // console.log(this.editData);
+        // this.toogleModal(event, 'editar');
     }
 
     isCombo(item) {

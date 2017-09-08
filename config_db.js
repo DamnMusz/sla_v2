@@ -1,4 +1,12 @@
 const { Pool, Client } = require('pg')
+
+exports.db_uppercase = function(str) {
+    if(str)
+        return str.toUpperCase();
+    else
+        return str;
+}
+
 exports.db = {
     databases: {
         agenda: {

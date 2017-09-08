@@ -9,7 +9,7 @@ exports.getRoutesHandler = function(express){
 			
 	routesHandler.route('/tarifa')
 		.get(controller.findAllTarifas)
-		.post(controller.createTarifa);
+		.post(controller.addTarifa);
 	  
 	return routesHandler;  
 }

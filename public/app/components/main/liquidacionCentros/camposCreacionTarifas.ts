@@ -1,10 +1,10 @@
 export var creacionTarifas = {
     types: {
         nombre: 'text',
-        valor: 'number'
+        monto: 'number'
     },
     text: {
         nombre: 'Nombre de Tarifa',
-        valor: 'Valor por Inspección'
+        monto: 'Monto por Inspección'
     }    
 }

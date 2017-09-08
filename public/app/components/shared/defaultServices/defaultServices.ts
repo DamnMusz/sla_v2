@@ -16,13 +16,19 @@ export class DefaultServices{
   }
 
   postJsonData(URL:string, data:any): Observable<any> {
-    var headers = new Headers();
+    let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(URL, data, {headers: headers});
   }
 
+  putJsonData(URL:string, data:any): Observable<any> {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(URL, data, {headers: headers});
+  }
+
   postGenerateXLS(json: Object): Observable<Response> {
-    var headers = new Headers();
+    let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(URL_EXPORT_XLS, json, {headers: headers});
   }
@@ -30,7 +36,6 @@ export class DefaultServices{
   exportToXLS(json: Object, filename){
     this.postGenerateXLS(json).subscribe(
         (res) => {
-          console.log(res);
             var blob=new Blob([res['_body']]);
             var link=document.createElement('a');
             link.href = 'data:attachment/text,' + encodeURIComponent(res["_body"]);
