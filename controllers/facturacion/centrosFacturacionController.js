@@ -5,7 +5,7 @@ var TIPO_CENTRO = 0;
 exports.findAll = function(req, res) {
     var client = db.connect("agenda");
     var queryString = 'SELECT facturacion_entidad.id as "Id", nombre_fantasia as "Nombre", cuit as "CUIT", razon_social as "Razón Social", '
-        +' "Provincias_Nombre" as "Provincia", '
+        + ' "Provincias_Nombre" as "Provincia", '
         + ' lugar as "Localidad", direccion_legal_calle as "Calle", direccion_legal_numero as "Número", propio as "Propio",'
         + ' afinidad_tarifaria_id as "Afinidad", tipo_factura as "T.Fact." '
         + ' FROM facturacion_entidad LEFT JOIN "Provincias" ON facturacion_entidad.provincia_legal_id = "Provincias"."Provincias_Id" '
@@ -71,47 +71,48 @@ exports.addCentroFacturacion = function(req, res) {
     })
 }
 
+getAddFields = function(arr) {
+    var res = {};    
+    res.keys = Object.keys(arr);
+    res.keys.splice(res.keys.indexOf("id"),1);
+    res.values = [];
+    res.keys.forEach(function(key) {
+        res.values.push(arr[key]);
+    }, this);
+    return res;
+}
+
+// TODO: Parametrizar el ID también para evitar SQL Injection
 exports.updateCentroFacturacion = function(req, res) {
     console.log('PUT/centro');
-    var adds = [];
-    adds.push({id:'nombre',value: req.body.nombre_fantasia});
-    adds.push({id:'nombre_fantasia',value: req.body.nombre_fantasia});
-    adds.push({id:'cuit',value: req.body.cuit});
-    adds.push({id:'razon_social',value: req.body.razon_social});
-    adds.push({id:'provincia_legal_id',value: req.body.provincia});
-    adds.push({id:'localidad_legal_id',value: req.body.localidad});
-    adds.push({id:'direccion_legal_calle',value: req.body.calle});
-    adds.push({id:'direccion_legal_numero',value: req.body.numero});
-    adds.push({id:'propio',value: req.body.propio});
-    adds.push({id:'afinidad_tarifaria_id',value: req.body.afinidad});
-    adds.push({id:'tipo_factura',value: req.body.tipo_factura});
+    getAddFields(req.body);
+    var adds = getAddFields(req.body);
 
     if(adds.length == 0)
         res.status(200).send();
 
-
     var queryString ='UPDATE facturacion_entidad SET (';
 
-    queryString += adds[0].id+'='+adds[0].value;
-    for(var i = 1; i < adds.length; ++i) {
-        queryString += ','+adds[i].id+'='+adds[i].value;
+    queryString += adds.keys[0];
+    for(var i = 1; i < adds.keys.length; ++i) {
+        queryString += ','+adds.keys[i];
+    }
+    queryString += ') = ($1';
+    for(var i = 1; i < adds.keys.length; ++i) {
+        queryString += ','+'$'+(i+1);
     }
 
-    queryString += ') WHERE id ='+req.body.id;
+    queryString += ') WHERE id = '+req.body.id;
 
-    // faltan las comillas en los strings. Fijarse si no lo hace solo ya.
-    console.log(queryString);
+    var client = db.connect("agenda");
 
+    client.query(queryString, adds.values, dbRes => {
+        db.disconnect(client)
+        res.status(200).send();
+    },e => {
+        db.disconnect(client)
+        console.log(err.message);
+        res.send(500, err.message);
+    })
     res.status(200).send();
-
-    // var client = db.connect("agenda");
-
-    // client.query(queryString, values, dbRes => {
-    //     db.disconnect(client)
-    //     res.status(200).send();
-    // },e => {
-    //     db.disconnect(client)
-    //     console.log(err.message);
-    //     res.send(500, err.message);
-    // })
 }

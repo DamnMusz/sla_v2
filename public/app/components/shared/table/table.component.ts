@@ -75,6 +75,7 @@ export class TableComponent {
                     this.keys = Object.keys(this.data[0]);
                 else
                     this.keys = [];
+                console.log(this.data);
                 if(this.camposEdicion && this.camposEdicion.text)
                     this.keysEdicion = Object.keys(this.camposEdicion.text);
                 else

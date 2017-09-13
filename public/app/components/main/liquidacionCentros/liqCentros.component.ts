@@ -22,7 +22,8 @@ declare var jQuery:any;
 export class LiquidacionCentrosComponent {
     listaCentrosURL = URL_LISTA_CENTROS_FACTURACION;
     tarifaURL = URL_TARIFA; 
-    tarifarioURL = URL_TARIFARIO; 
+    tarifarioURL = URL_TARIFARIO+'?from=2017-01-01&to=2017-12-01'; 
+    tarifarioPostURL = URL_TARIFARIO;
     tableTitle = 'Centros de Inspección';
     camposEdicionCentro = edicionCentro;
     camposEdicionTarifas = edicionTarifas;

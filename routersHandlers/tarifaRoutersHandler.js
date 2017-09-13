@@ -5,7 +5,8 @@ exports.getRoutesHandler = function(express){
 	var routesHandler = express.Router();
 
 	routesHandler.route('/tarifario')
-		.get(controller.getTarifario);
+		.get(controller.getTarifario)
+		.put(controller.editTarifario);
 			
 	routesHandler.route('/tarifa')
 		.get(controller.findAllTarifas)

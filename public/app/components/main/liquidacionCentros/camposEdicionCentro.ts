@@ -6,24 +6,23 @@ export var edicionCentro = {
         nombre_fantasia: 'text',
         cuit: 'number',
         razon_social: 'text',
-        provincia: {
+        provincia_legal_id: {
             type: 'select',
             url_get: URL_PROVINCIA,
-            on_change_field: 'localidad',
+            on_change_field: 'localidad_legal_id',
             on_change_value_set: URL_LOCALIDAD
         },
-        localidad: {
+        localidad_legal_id: {
             type: 'select',
             url_get: ''
         },
-        afinidad: {
+        afinidad_tarifaria_id: {
             type: 'select',
             url_get: URL_AFINIDAD_TARIFARIA
         },
-        calle: 'text',
-        numero: 'number',
+        direccion_legal_calle: 'text',
+        direccion_legal_numero: 'number',
         tipo_factura: 'text',
-        // id_centro_agenda: 'number',
         propio: 'boolean'
     },
     required: {
@@ -34,13 +33,12 @@ export var edicionCentro = {
         nombre_fantasia: 'Nombre',
         cuit: 'CUIT',
         razon_social: 'Razón Social',
-        provincia: 'Provincia',
-        localidad: 'Localidad',
-        afinidad: 'Afinidad Tarifaria',
-        calle: 'Calle',
-        numero: 'Número',
+        provincia_legal_id: 'Provincia',
+        localidad_legal_id: 'Localidad',
+        afinidad_tarifaria_id: 'Afinidad Tarifaria',
+        direccion_legal_calle: 'Calle',
+        direccion_legal_numero: 'Número',
         tipo_factura: 'T.Fact.',
-        // id_centro_agenda: 'Id Agenda',
         propio: 'Propio',
     }    
 }
