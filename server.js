@@ -69,6 +69,7 @@ app.use('/api/v1/', require("./routersHandlers/provinciaRoutersHandler").getRout
 app.use('/api/v1/', require("./routersHandlers/localidadRoutersHandler").getRoutesHandler(express));
 app.use('/api/v1/', require("./routersHandlers/afinidadTarifariaRoutersHandler").getRoutesHandler(express));
 app.use('/api/v1/', require("./routersHandlers/tarifaRoutersHandler").getRoutesHandler(express));
+app.use('/api/v1/', require("./routersHandlers/liqCentrosRoutersHandler").getRoutesHandler(express));
 
 var server = require('http').createServer(app); 
 // var io = require('socket.io')(server);

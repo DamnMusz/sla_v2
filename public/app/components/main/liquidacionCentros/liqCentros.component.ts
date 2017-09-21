@@ -10,6 +10,8 @@ import { creacionTarifas } from './camposCreacionTarifas'
 import {URL_LISTA_CENTROS_FACTURACION} from '../../rutas';
 import {URL_TARIFA} from '../../rutas';
 import {URL_TARIFARIO} from '../../rutas';
+import {URL_AFINIDAD_TARIFARIA} from '../../rutas';
+import {URL_LIQUIDACION_CENTRO} from '../../rutas';
 
 declare var jQuery:any;
 
@@ -21,54 +23,141 @@ declare var jQuery:any;
 
 export class LiquidacionCentrosComponent {
     listaCentrosURL = URL_LISTA_CENTROS_FACTURACION;
+    dateFacturacion = new Date().getFullYear()+'-'+ ("0"+(new Date().getMonth()+1)).slice(-2);
+    tarifaYear = new Date().getFullYear();
+    tarifaFrom = this.tarifaYear+'-01-01';
+    tarifaTo = this.tarifaYear+'-12-31';
     tarifaURL = URL_TARIFA; 
-    tarifarioURL = URL_TARIFARIO+'?from=2017-01-01&to=2017-12-01'; 
+    tarifarioURL = URL_TARIFARIO;
+    liqCentroURL = URL_LIQUIDACION_CENTRO;
+    liqCentroParameters = '?periodo='+this.dateFacturacion;
+    tarifarioURLParameters = '?from='+this.tarifaFrom+'&to='+this.tarifaTo;
     tarifarioPostURL = URL_TARIFARIO;
     tableTitle = 'Centros de Inspección';
     camposEdicionCentro = edicionCentro;
     camposEdicionTarifas = edicionTarifas;
     camposCreacionCentro = creacionCentro;
     camposCreacionTarifas = creacionTarifas;
+    tarifaHeaderButtons = [
+        { title: 'anterior', icon_left: 'keyboard_arrow_left', icon_right: '', event: 'prevTarifario' },
+        { title: 'posterior', icon_left: '', icon_right: 'keyboard_arrow_right', event: 'nextTarifario' },
+    ]
+    liquidacionHeaderButtons = [
+        { title: 'mes anterior', icon_left: 'keyboard_arrow_left', icon_right: '', event: 'prevLiquidacion' },
+        { title: 'mes posterior', icon_left: '', icon_right: 'keyboard_arrow_right', event: 'nextLiquidacion' },
+    ]
+    centrosHeaderButtons = [
+        { title: 'Afinidades Tarifarias', icon_left: 'add', icon_right: '', event: 'addAfinidad' },
+    ]
     buttonData = [
         {id: 0, nombre: "Centros", color: "btn-danger"},
         {id: 1, nombre: "Tarifas", color: "btn-primary"},
         {id: 2, nombre: "Facturar", color: "btn-success"},
+        {id: 3, nombre: "Enviar Email", color: "btn-info"},
     ];
-    vista = {
-        centros: true,
-        tarifas: false,
-        facturar: false
-    };
+    vista:any = { centros: true };
+    afinidades = [];
+    showModalAfinidad = false;
+    selectedAfinidad;
+    textAfinidad = "";
+    
+    constructor(private defaultService: DefaultServices) {}
 
-    constructor(private liqCentrosService: DefaultServices) {}
-
-    ngOnInit() {}
+    ngOnInit() {
+        this.afinidades = [{id:0, value:'Crear Nueva Afinidad'}];
+    }
 
     handleSelection(selected) {
         switch (selected) {
             case 0:
-                this.vista = {
-                    centros: true,
-                    tarifas: false,
-                    facturar: false
-                }
-            break;
+                this.vista = { centros: true };
+                break;
             case 1:
-                this.vista = {
-                    centros: false,
-                    tarifas: true,
-                    facturar: false
-                }
-            break;
+                this.vista = { tarifas: true };
+                break;
             case 2:
-                this.vista = {
-                    centros: false,
-                    tarifas: false,
-                    facturar: true
-                }
-            break;
+                this.vista = { facturar: true };
+                break;
+            case 3:
+                this.vista = { informar: true };
+                break;
             default:
                 break;
         }
+    }
+
+    handleEvent(event) {
+        switch (event) {
+            case 'prevTarifario':
+                    this.tarifaYear = this.tarifaYear-1;
+                    this.tarifaFrom = this.tarifaYear+'-01-01';
+                    this.tarifaTo = this.tarifaYear+'-12-31';
+                    this.tarifarioURLParameters = '?from='+this.tarifaFrom+'&to='+this.tarifaTo;
+                break;
+            case 'nextTarifario':
+                    this.tarifaYear = this.tarifaYear+1;
+                    this.tarifaFrom = this.tarifaYear+'-01-01';
+                    this.tarifaTo = this.tarifaYear+'-12-31';
+                    this.tarifarioURLParameters = '?from='+this.tarifaFrom+'&to='+this.tarifaTo;
+                break;
+            case 'addAfinidad':
+                this.defaultService.getData(URL_AFINIDAD_TARIFARIA).subscribe(
+                    (data) => {
+                        this.afinidades = [{id:0, value:'Crear Nueva Afinidad'}];
+                        data.forEach(element => {
+                            this.afinidades.push(element);
+                        });
+                        this.showModalAfinidad = true;
+                    },
+                    err => console.error("EL ERROR FUE: ", err)
+                );
+                break;
+            default:
+                break;
+        }
+    }
+
+    onDateFactChange(event) {
+        this.dateFacturacion = event;
+        this.liqCentroParameters = '?periodo='+this.dateFacturacion;
+    }
+
+    toogleModal(event, accion, row = undefined) {
+        if (event.currentTarget === event.target) {
+            this.selectedAfinidad;
+            this.textAfinidad = "";
+            this.showModalAfinidad= !this.showModalAfinidad;
+        }
+    }
+
+    selectAfinidad(event) {
+        this.selectedAfinidad = event.value;
+        if(this.selectedAfinidad.id == 0)
+            this.textAfinidad = '';
+        else
+            this.textAfinidad = this.selectedAfinidad.value;
+    }
+
+    commitAfinidad(event) {
+        console.log(this.selectedAfinidad);
+        console.log(this.textAfinidad);
+        if(this.selectedAfinidad) {
+            if(this.selectedAfinidad.id == 0) {
+                this.defaultService.postJsonData(URL_AFINIDAD_TARIFARIA,{nombre:this.textAfinidad}).subscribe(
+                    () => {
+                        this.showModalAfinidad = false;
+                    },
+                    err => console.error("EL ERROR FUE: ", err)
+                );
+            } else {
+                this.defaultService.putJsonData(URL_AFINIDAD_TARIFARIA,{id: this.selectedAfinidad.id,nombre:this.textAfinidad}).subscribe(
+                    () => {
+                        this.showModalAfinidad = false;
+                    },
+                    err => console.error("EL ERROR FUE: ", err)
+                );
+            }
+        }
+        this.toogleModal(event, 'afinidad');
     }
 }

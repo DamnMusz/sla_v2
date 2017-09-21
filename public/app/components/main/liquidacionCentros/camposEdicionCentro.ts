@@ -3,7 +3,7 @@ import {URL_LOCALIDAD} from '../../rutas';
 import {URL_AFINIDAD_TARIFARIA} from '../../rutas';
 export var edicionCentro = {
     types: {
-        nombre_fantasia: 'text',
+        nombre: 'text',
         cuit: 'number',
         razon_social: 'text',
         provincia_legal_id: {
@@ -23,22 +23,24 @@ export var edicionCentro = {
         direccion_legal_calle: 'text',
         direccion_legal_numero: 'number',
         tipo_factura: 'text',
-        propio: 'boolean'
+        propio: 'boolean',
+        email: 'email'
     },
     required: {
         cuit: true,
         razon_social: true,
     },
     text: {
-        nombre_fantasia: 'Nombre',
+        nombre: 'Nombre',
         cuit: 'CUIT',
         razon_social: 'Razón Social',
         provincia_legal_id: 'Provincia',
         localidad_legal_id: 'Localidad',
-        afinidad_tarifaria_id: 'Afinidad Tarifaria',
+        afinidad_tarifaria_id: 'Afinidad',
         direccion_legal_calle: 'Calle',
         direccion_legal_numero: 'Número',
         tipo_factura: 'T.Fact.',
         propio: 'Propio',
+        email: 'Email'
     }    
 }

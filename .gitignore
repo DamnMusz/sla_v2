@@ -7,4 +7,5 @@ public/npm-debug.log
 logs/reporter.log
 .idea
 .idea/typescript-compiler.xml
+config_db.js
 

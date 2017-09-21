@@ -5,7 +5,9 @@ exports.getRoutesHandler = function(express){
 	var routesHandler = express.Router();
 
 	routesHandler.route('/afinidadTarifaria')
-	  .get(controller.findAll);
+		.get(controller.findAll)
+		.post(controller.add)
+		.put(controller.edit);
 	  
 	return routesHandler;  
 }

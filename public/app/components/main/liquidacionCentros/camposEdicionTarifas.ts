@@ -1,18 +1,12 @@
-import {URL_TARIFA} from '../../rutas';
+import {URL_TARIFA_OPTIONS} from '../../rutas';
 export var edicionTarifas = {
     types: {
         tarifas: {
             type: 'select',
-            url_get: URL_TARIFA
+            url_get: URL_TARIFA_OPTIONS
         },
-        desde: {
-            type: 'select',
-            url_get: ''
-        },
-        hasta: {
-            type: 'select',
-            url_get: ''
-        }
+        desde: 'month',
+        hasta: 'month'
     },
     text: {
         tarifas: 'Tarifas',

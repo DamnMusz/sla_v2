@@ -1,17 +1,80 @@
 <button-line-cmp [data]="buttonData" (selectionChanged)="handleSelection($event)"></button-line-cmp>
-<table-cmp [hidden]="!vista.centros" 
+<table-cmp *ngIf="vista.centros" 
     [title]="tableTitle" [data]="tableData" [editableRows]="true" [urlGet]="listaCentrosURL" [urlPost]="listaCentrosURL"
     editTitle="Editar Centro" [camposEdicion]="camposEdicionCentro" [color]="'red'" [addItemOption]="true" [camposCreacion]="camposCreacionCentro"
     [createTitle]="'Crear Centro'" [createTitleTooltip]="'Agregar Nuevo Centro'"
+    [bodyButtons]='centrosHeaderButtons' (event)="handleEvent($event)"
 ></table-cmp>
-<table-cmp [hidden]="!vista.tarifas"
+<table-cmp *ngIf="vista.tarifas"
     [title]="'Tarifas Disponibles'" [editableRows]="false" [color]="'purple'"
     [createTitle]="'Crear Tarifa'" [createTitleTooltip]="'Agregar Nueva Tarifa'" [camposCreacion]="camposCreacionTarifas" [addItemOption]="true"
     [urlGet]="tarifaURL" [urlPost]="tarifaURL"
 ></table-cmp>
-<table-cmp [hidden]="!vista.tarifas"
+<table-cmp *ngIf="vista.tarifas"
     [title]="'Tarifario'" [editableRows]="true" [color]="'purple'"
-    [editTitle]="'Editar Tarifa'" [camposEdicion]="camposEdicionTarifas" [addItemOption]="false" [urlGet]="tarifarioURL" [urlPost]="tarifarioPostURL"
+    [editTitle]="'Editar Tarifa'" [camposEdicion]="camposEdicionTarifas" [addItemOption]="false"
+    [urlGet]="tarifarioURL" [urlGetParameters]="tarifarioURLParameters" [urlPost]="tarifarioPostURL"
+    [headerButtons]='tarifaHeaderButtons' (event)="handleEvent($event)" [fillEdit]="false"
 ></table-cmp>
 
-<h1 [hidden]="!vista.facturar">Facturar</h1>
+<div class="col-xs-12" *ngIf="vista.facturar">
+    <div class="card">
+        <div class="col-xs-12 col-md-6 col-lg-4">
+            <div class="form-group form-black label-floating" style="margin-top: 20px">
+                <label class="col-xs-5" style="padding-top:7px">Período:</label>
+                <div class="col-xs-7">
+                    <input type="month" class="form-control" [ngModel]="dateFacturacion" (ngModelChange)="onDateFactChange($event)" style="padding-top:0">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table-cmp *ngIf="vista.facturar"
+    [title]="'Liquidación Centros'" [color]="'green'"
+    [urlGet]="liqCentroURL" [urlGetParameters]="liqCentroParameters"
+></table-cmp>
+
+<div class="col-xs-12" *ngIf="vista.informar">
+    <div class="card">
+        <div class="col-xs-12 col-md-6 col-lg-4">
+            <div class="form-group form-black label-floating" style="margin-top: 20px">
+                <label class="col-xs-5" style="padding-top:7px">Período:</label>
+                <div class="col-xs-7">
+                    <input type="month" class="form-control" [ngModel]="dateFacturacion" (ngModelChange)="onDateFactChange($event)" style="padding-top:0">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL AGREGAR AFINIDAD -->
+<div *ngIf="showModalAfinidad" class="swal2-container swal2-fade swal2-shown" [ngClass]="{'hidden': showModalAfinidad==false}" style="overflow-y: auto;" (click)="toogleModal($event,'afinidad')" >
+    <div role="dialog" aria-labelledby="modalTitleId" aria-describedby="modalContentId" class="swal2-modal swal2-show" tabindex="-1"
+        style="width: 80%; padding: 20px; background: rgb(255, 255, 255); display: block; min-height: 263px;">
+        <h2 class="swal2-title" id="modalTitleId">Afinidades Tarifarias</h2>
+        <div id="modalContentId" class="swal2-content" style="display: block;">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-4 pull-left">
+                    <div class="form-group form-black" style="margin-top: 10px; margin-bottom: 17px">
+                        <dropdown-cmp
+                        [data]="afinidades"
+                        (selectionChanged)="selectAfinidad($event)"
+                        ></dropdown-cmp>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4 pull-left" *ngIf="selectedAfinidad">
+                    <div class="form-group form-black label-floating" [ngClass]="{'is-empty': !textAfinidad}">
+                        <label class="control-label">Nombre {{(selectedAfinidad&&selectedAfinidad.id == 0)?"Nueva ":""}}Afinidad</label>
+                        <input type="text" class="form-control" style="text-transform:uppercase" [(ngModel)]="textAfinidad">
+                    </div>
+                </div>                
+            </div> 
+        </div>
+        <hr class="swal2-spacer" style="display: block;">
+        <button type="button"
+            role="button" tabindex="0" class="swal2-cancel btn btn-danger" style="display: inline-block;" (click)="toogleModal($event,'afinidad')" >Cancelar</button>
+        <button type="button" role="button" tabindex="0" class="swal2-confirm btn btn-success" (click)="commitAfinidad($event)" >{{(selectedAfinidad&&selectedAfinidad.id == 0)?"Crear":"Editar"}} Afinidad</button>
+    </div>
+</div>

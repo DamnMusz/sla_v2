@@ -11,6 +11,9 @@ exports.getRoutesHandler = function(express){
 	routesHandler.route('/tarifa')
 		.get(controller.findAllTarifas)
 		.post(controller.addTarifa);
+
+	routesHandler.route('/tarifaOptions')
+		.get(controller.findAllTarifasOptions);
 	  
 	return routesHandler;  
 }
