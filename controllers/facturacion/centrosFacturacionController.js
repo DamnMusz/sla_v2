@@ -1,5 +1,6 @@
 var db = require('../../config_db').db;
 var uppercase = require('../../config_db').db_uppercase;
+exports.TIPO_CENTRO = 0;
 var TIPO_CENTRO = 0;
 
 exports.findAll = function(req, res) {
@@ -22,6 +23,19 @@ exports.findAll = function(req, res) {
         db.disconnect(client)
         res.send(500, err.message);
     })        
+};
+
+exports.findAllNames = function(req, res) {
+    var client = db.connect("agenda");
+    var queryString = 'SELECT id as id, nombre as value FROM facturacion_entidad WHERE facturacion_entidad.activo = true AND tipo_entidad = ' + TIPO_CENTRO +' ORDER BY nombre ASC';
+    db.query(queryString
+        , client, dbRes => {
+        db.disconnect(client)
+        res.status(200).jsonp(dbRes.rows);
+    },e => {
+        db.disconnect(client)
+        res.send(500, err.message);
+    })              
 };
 
 exports.findById = function(req, res) {

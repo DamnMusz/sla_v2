@@ -33,20 +33,15 @@
 <table-cmp *ngIf="vista.facturar"
     [title]="'Liquidación Centros'" [color]="'green'"
     [urlGet]="liqCentroURL" [urlGetParameters]="liqCentroParameters"
+    [rowButtons]='liqCentroRowButtons' (event)="handleEventMail($event)"
 ></table-cmp>
 
-<div class="col-xs-12" *ngIf="vista.informar">
-    <div class="card">
-        <div class="col-xs-12 col-md-6 col-lg-4">
-            <div class="form-group form-black label-floating" style="margin-top: 20px">
-                <label class="col-xs-5" style="padding-top:7px">Período:</label>
-                <div class="col-xs-7">
-                    <input type="month" class="form-control" [ngModel]="dateFacturacion" (ngModelChange)="onDateFactChange($event)" style="padding-top:0">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<table-cmp *ngIf="vista.informar" 
+[title]="'Emails Centros'" [editableRows]="true" [urlGet]="emailCentroURL" [urlPost]="emailCentroURL"
+[editTitle]="'Editar Formato de Email'" [camposEdicion]="camposEdicionEmail" [color]="'blue'" [addItemOption]="true" [camposCreacion]="camposCreacionEmail"
+[createTitle]="'Crear Formato de Email'" [createTitleTooltip]="'Agregar Nuevo Centro'"
+(event)="handleEvent($event)"
+></table-cmp>
 
 
 <!-- MODAL AGREGAR AFINIDAD -->

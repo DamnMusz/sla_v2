@@ -6,12 +6,18 @@ import { edicionCentro } from './camposEdicionCentro'
 import { creacionCentro } from './camposCreacionCentro'
 import { edicionTarifas } from './camposEdicionTarifas'
 import { creacionTarifas } from './camposCreacionTarifas'
+import { creacionEmail } from './camposCreacionEmail'
+import { edicionEmail } from './camposEdicionEmail'
 
-import {URL_LISTA_CENTROS_FACTURACION} from '../../rutas';
-import {URL_TARIFA} from '../../rutas';
-import {URL_TARIFARIO} from '../../rutas';
-import {URL_AFINIDAD_TARIFARIA} from '../../rutas';
-import {URL_LIQUIDACION_CENTRO} from '../../rutas';
+import {
+    URL_LISTA_CENTROS_FACTURACION,
+    URL_EMAILS_CENTROS_FACTURACION,
+    URL_TARIFA,
+    URL_TARIFARIO,
+    URL_AFINIDAD_TARIFARIA,
+    URL_LIQUIDACION_CENTRO,
+    URL_MAIL_LIQUIDACION_CENTRO
+} from '../../rutas';
 
 declare var jQuery:any;
 
@@ -30,6 +36,7 @@ export class LiquidacionCentrosComponent {
     tarifaURL = URL_TARIFA; 
     tarifarioURL = URL_TARIFARIO;
     liqCentroURL = URL_LIQUIDACION_CENTRO;
+    emailCentroURL = URL_EMAILS_CENTROS_FACTURACION;
     liqCentroParameters = '?periodo='+this.dateFacturacion;
     tarifarioURLParameters = '?from='+this.tarifaFrom+'&to='+this.tarifaTo;
     tarifarioPostURL = URL_TARIFARIO;
@@ -38,6 +45,8 @@ export class LiquidacionCentrosComponent {
     camposEdicionTarifas = edicionTarifas;
     camposCreacionCentro = creacionCentro;
     camposCreacionTarifas = creacionTarifas;
+    camposCreacionEmail = creacionEmail;
+    camposEdicionEmail = edicionEmail;
     tarifaHeaderButtons = [
         { title: 'anterior', icon_left: 'keyboard_arrow_left', icon_right: '', event: 'prevTarifario' },
         { title: 'posterior', icon_left: '', icon_right: 'keyboard_arrow_right', event: 'nextTarifario' },
@@ -49,11 +58,14 @@ export class LiquidacionCentrosComponent {
     centrosHeaderButtons = [
         { title: 'Afinidades Tarifarias', icon_left: 'add', icon_right: '', event: 'addAfinidad' },
     ]
+    liqCentroRowButtons = [
+        { title: "Mail Enviado", icon: 'mail_outline', icon2: 'done_all', event: 'sendEmail' },
+    ]
     buttonData = [
         {id: 0, nombre: "Centros", color: "btn-danger"},
         {id: 1, nombre: "Tarifas", color: "btn-primary"},
         {id: 2, nombre: "Facturar", color: "btn-success"},
-        {id: 3, nombre: "Enviar Email", color: "btn-info"},
+        {id: 3, nombre: "Editar Emails", color: "btn-info"}
     ];
     vista:any = { centros: true };
     afinidades = [];
@@ -65,6 +77,15 @@ export class LiquidacionCentrosComponent {
 
     ngOnInit() {
         this.afinidades = [{id:0, value:'Crear Nueva Afinidad'}];
+    }
+
+    enviarEmail(id) {
+        this.defaultService.putJsonData(URL_MAIL_LIQUIDACION_CENTRO+'/'+id,{periodo:this.dateFacturacion}).subscribe(
+            (data) => {
+                alert("Enviados emails (todavía no)");
+            },
+            err => alert(err)
+        );
     }
 
     handleSelection(selected) {
@@ -115,6 +136,10 @@ export class LiquidacionCentrosComponent {
             default:
                 break;
         }
+    }
+
+    handleEventMail(event) {
+        this.enviarEmail(event.substring(event.indexOf('/')+1));
     }
 
     onDateFactChange(event) {

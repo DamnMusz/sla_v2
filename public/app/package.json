@@ -8,6 +8,7 @@
     "tsc:w": "tsc -w"
   },
   "dependencies": {
+    "@angular-redux/store": "^6.5.7",
     "@angular/common": "~2.4.9",
     "@angular/compiler": "~2.4.9",
     "@angular/core": "~2.4.9",

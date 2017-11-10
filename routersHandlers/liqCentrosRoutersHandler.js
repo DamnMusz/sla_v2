@@ -6,6 +6,9 @@ exports.getRoutesHandler = function(express){
 
 	routesHandler.route('/liquidacionCentro')
 		.get(controller.findAll);
+	
+	routesHandler.route('/mailLiquidacionCentro/:id')
+		.put(controller.sendMailCentros);
 			
 	return routesHandler;  
 }

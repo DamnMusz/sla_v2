@@ -5,7 +5,11 @@ var express = require("express"),
     bodyParser  = require("body-parser"),
     methodOverride = require("method-override"),
     auth = require('./routes/auth.js'),
-    db = require('./config_db').db;
+    db = require('./config_db').db
+    fileSystem = require("fs");
+
+// Deber ir antes del app use public
+app.all('/carga/factura/*', [require('./middlewares/validateExternal')]);
 
 app.use(express.static('public'));
 
@@ -25,8 +29,7 @@ var allowCrossDomain = function(req, res, next) {
 
 app.use(allowCrossDomain);
 
-// HTML read
-var fileSystem = require("fs");
+
 
 // Auth Middleware - This will check if the token is valid
 // Only the requests that start with /api/v1/* will be checked for the token.
@@ -34,6 +37,8 @@ var fileSystem = require("fs");
 // are sure that authentication is not needed
 app.all('/api/v1/*', [require('./middlewares/validateRequest')]);
 app.all('/app/*', [require('./middlewares/validateRequest')]);
+
+//app.all('/carga/factura.html', [require('./middlewares/validateExternal')]);
 
 
 // Index route
@@ -61,6 +66,10 @@ app.get('/app/*', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/', 'app.html'));
 })
 
+app.get('/carga/factura/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '/public/carga/factura/', 'index.html'));
+})
+
 app.use(router);
 
 /* Routes that can be accessed only by autheticated users (API routes) */
@@ -70,6 +79,7 @@ app.use('/api/v1/', require("./routersHandlers/localidadRoutersHandler").getRout
 app.use('/api/v1/', require("./routersHandlers/afinidadTarifariaRoutersHandler").getRoutesHandler(express));
 app.use('/api/v1/', require("./routersHandlers/tarifaRoutersHandler").getRoutesHandler(express));
 app.use('/api/v1/', require("./routersHandlers/liqCentrosRoutersHandler").getRoutesHandler(express));
+app.use('/api/v1/', require("./routersHandlers/emailCentrosRoutersHandler").getRoutesHandler(express));
 
 var server = require('http').createServer(app); 
 // var io = require('socket.io')(server);

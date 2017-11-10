@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
+	<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>:: BARBARA ::</title>
+	<link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="img/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="assets/img/favicon/ms-icon-144x144.png">
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!--  Material Dashboard CSS    -->
+    <link href="assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet"/>
+
+    <!--     Fonts and icons     -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+<style>
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 568px) {
+        .col-sm-6 {
+            float: left;
+            width: 50%;
+        }
+    }
+    .row {
+        margin: 10px 10px 10px 10px;
+        padding: 10px 10px 10px 10px;
+        box-shadow: 0 8px 8px 0 rgba(0,0,0,.14);
+        background-color: #FFFFFF;
+
+    }
+
+    .no-shadow-row {
+        box-shadow: 0 0 0 0;
+    }
+
+    h4 {
+        margin-bottom: 0;
+    }
+    hr {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .no-padding-sides {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+
+    /* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 10000; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: rgb(250,250,250); /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    box-shadow: 0 20px 20px 0 rgba(0,0,0,.84);
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 1.3em;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 1em;
+    margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 1em;}
+}
+
+.navbar {
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,.14);
+    padding-left: 20px;
+    background-color: #1976D2;
+    border-width: 0;
+}
+
+#main {
+    padding: 0;
+    margin-top: 60px;
+}
+
+.container {
+    font-size: 1.1em;
+}
+
+.bottom-pic-text{
+    font-size: 0.7em;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+</style>
+    
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <div class="row no-shadow-row" style="padding: 10px; text-align: center;">
+            <img src="assets/img/logo_barbara.png">
+        </div>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="material-icons" style="font-size:2em;">clear</i></a>
+        <hr>
+        <a href="#inicio" onclick="closeNav()">Inicio</a>
+        <hr>
+        <a href="#login" onclick="closeNav()">Login</a>
+        <hr>
+        <a href="#vehiculo" onclick="closeNav()">Vehiculo</a>
+        <hr>
+        <a href="#datosvehiculo" onclick="closeNav()">Datos Vehiculo</a>
+        <hr>
+        <a href="#datosip" onclick="closeNav()">Datos Inspeccón</a>
+        <hr>
+        <a href="#inspeccion" onclick="closeNav()">Inspeccion</a>
+        <hr>
+        <a href="#danos" onclick="closeNav()">Daños</a>
+        <hr>
+        <a href="#fotos" onclick="closeNav()">Fotos</a>
+        <hr>
+        <a href="#luces" onclick="closeNav()">Luces</a>
+        <hr>
+        <a href="#ruedas" onclick="closeNav()">Ruedas</a>
+        <hr>
+        <a href="#accesorios" onclick="closeNav()">Accesorios</a>
+        <hr>
+        <a href="#envio" onclick="closeNav()">Envio</a>
+        <hr>
+        <a href="#daniosPintura" onclick="closeNav()">Daños Pintura</a>
+        <hr>
+        <a href="#daniosChapayPintura" onclick="closeNav()">Daños Chapa y Pintura</a>
+        <hr>
+    </div>
+
+    <div class="navbar navbar-fixed-top">
+        <span onclick="openNav()" style="cursor:pointer; color: #FFFFFF"><i class="material-icons">menu</i></span>
+    </div>
+    <div id="main" class="container">
+        <section id="inicio" class="inicio">
+            <div class="row" style="text-align: center; box-shadow: 0; margin: 10px 10px 0 10px; padding-bottom: 20px; padding-left: 5px; padding-right: 5px;" >
+                <h2>Barbara Mobile</h2>
+                <img src="assets/img/logo_barbara.png">
+            </div>
+        </section>
+        <section id="login" class="section">
+            <div class="row">
+                    <div class="col-xs-12"  style="text-align: center;">
+                        <h3>Login</h3>
+                    </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                        <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                        <hr>
+                        <ul>
+                                <li>El usuario y la clave le serán proporcionados por el Administrador.</li>
+                                <li>Si olvido la contraseña, podrá recuperarla desde RECUPERAR CLAVE (angulo inferior)</li>
+                                <li>La carga de la inspección puede hacerse con o sin conexión a internet</li>
+                                <li>Para el envío del informe deberá estar conectado a internet por wifi o plan de datos</li>
+                                <li>Al ingresar por primera vez es necesario que lo haga conectado a internet para poder validar su usuario.</li>
+                            </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                        <div class="col-xs-12 no-padding-sides">
+                        <h4 style="text-align: center; width:100%">Pantalla</h4>
+                        <hr>
+                    </div>
+                    <div class="col-xs-12 no-padding-sides">
+                        <a href="assets/img/screens/login.png"><img src="assets/img/screens/login.png" width="100%"></a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                        <h4 style="text-align: center; width:100%">Recomendaciones Técnicas</h4>
+                        <hr>
+                        <p><b>Nuevas versiones:</b></p>
+                        <ul>
+                            <li>Las actualizaciones son de tipo obligatorio, es decir que de existir una versión actualizada no podrá operar sobre una anterior</li>
+                            <li>Recibirá el aviso de que está disponible  una nueva versión para descargarla cuando cuente con conexión adecuada.</li>
+                        </ul> 
+                </div>
+            </div>
+        </section>
+        <section id="menu" class="section">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                        <h3>Menú Inspección</h3>
+                    </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                        <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                        <hr>
+                        <p>
+                            En el borde superior derecho encontramos el icono
+                            <i class="material-icons">menu</i>
+                            que habilita el menú de Inicio desplegable 
+                        </p>
+                        <ul>
+                            <li>En MIS INSPECCIONES quedarán pendientes las inspecciones realizadas hasta tener conexión a Internet y ser enviadas</li>
+                            <li>Para realizar una inspección seleccionamos NUEVA INSPECCION.</li>
+                        </ul>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                        <div class="col-xs-12 no-padding-sides">
+                        <h4 style="text-align: center; width:100%">Pantalla</h4>
+                        <hr>
+                    </div>
+                    <div class="col-xs-12 no-padding-sides">
+                            <a href="assets/img/screens/menu.png"><img src="assets/img/screens/menu.png" width="100%"></a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                        <h4 style="text-align: center; width:100%">Recomendaciones Técnicas</h4>
+                        <hr>
+                        <p>Antes de comenzar una inspección verifique que la persona a cargo del vehículo cuenta con:</p>
+                        <ul>
+                            <li>CEDULA VERDE o TITULO de la unidad</li>
+                            <li>LICENCIA de conducir o DNI (de la persona que llevo el auto a inspeccionar) </li>
+                        </ul> 
+                </div>
+            </div>
+        </section>
+        <section class="section" id="vehiculo">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                <h3>Vehículo</h3>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                    <hr>
+                    <ul>
+                    <li>La mayor parte de los campos es del tipo “lista de selección” y se activará insertando las primeras 3 letra de la palabra.</li>
+                    <li>Si la Cédula Verde tiene código QR  utillícelo para capturar los datos del Dominio y n° de chasis (últimos 7 dígitos).</li>
+                    <li>•	El tipo de vehículo se definirá en la mayoría de los casos desde la tabla Infoauto a partir de Año, Marca y Modelo.De no ser así deberá seleccionarlo en forma manual.</li>
+                    </ul>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <div class="col-xs-12 no-padding-sides">
+                    <h4 style="text-align: center; width:100%">Pantalla</h4>
+                    <hr>
+                </div>
+                <div class="col-xs-12 no-padding-sides"> <a href="assets/img/screens/vehiculo.png"><img src="assets/img/screens/vehiculo.png" width="100%"></a> </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Recomendaciones Técnicas</h4>
+                <hr>
+                    <li>Cuando no utilice el código QR, preste especial atención en la carga de DOMINIO Y MODELO</li>
+    
+                    <li>Existen modelos similares para una marca/año, y se diferencian en los accesorios. Consulte al asegurado si tiene dudas,  y coteje accesorios para una correcta selección.</li>
+    
+                    <li>En caso de no cargar el Tipo de Vehículo en forma automática, seleccionelo  de la tabla el que sea más similar al inspeccionado.</li>            
+                </div>
+            </div>
+        </section>
+        <section class="section" id="datosvehiculo">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                <h3>Datos Vehículo</h3>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                <hr>
+                    <ul>
+                    <li>El  N °de chasis estampado en el vehículo y el N°de motor estampado en el block deben coincidir con los que figuran en la cédula verde.</li>
+                            <li>Coincide /  Difiere  Seleccione el motivo en caso de  no poder realizar la verificación (deberá elegir una opción del menú desplegable)</li>
+                            <li>Si utilizó el código QR, deberá cargar los 10 primeros dígitos del n° de Chasis. </li>
+                </ul>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <div class="col-xs-12 no-padding-sides">
+                    <h4 style="text-align: center; width:100%">Pantalla</h4>
+                    <hr>
+                </div>
+                <div class="col-xs-12 no-padding-sides"> <a href="assets/img/screens/datosvehiculo.png"><img src="assets/img/screens/datosvehiculo.png" width="100%"></a></div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Recomendaciones Técnicas</h4>
+                <hr>
+                    <ul>
+                    <li>TIPOS DE USO: Particular /Comercial transporta terceros (taxi, remises, escolares etc) / Comercial no transporta terceros (vehículos con caja de carga, de seguridad, etc) / Declara particular (en caso de que le genere dudas la veracidad del uso declarado).</li>
+                    <li>NO OLVIDE VERIFICAR:
+                        <ul>
+                            <li>Tunning (Suspensión modificada o taquímetros no originales)</li>
+                            <li>Ploteado</li>
+                            <li>Seguridad (Empresas de custodia), Vehículo blindado.</li>
+                            <li>Taxi ,  Remise, Ambulancia,.</li>
+                        </ul>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+            </section>
+        <section id="datosip" class="section">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                <h3>Datos Inspección</h3>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                <hr>
+                <ul>
+                <li>El código postal corresponde al lugar donde se realiza la inspección.</li>
+                <li>Apellido y nombre o  Razón Social (persona jurídica) a ingresar corresponden al titular registral</li>
+                </ul>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <div class="col-xs-12 no-padding-sides">
+                    <h4 style="text-align: center; width:100%">Pantalla</h4>
+                    <hr>
+                </div>
+                <div class="col-xs-12 no-padding-sides"> <a href="assets/img/screens/datosip.png"><img src="assets/img/screens/datosip.png" width="100%"></a></div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Recomendaciones Técnicas</h4>
+                <hr>
+                <ul>
+                    <li>La carga de un e-mail  es obligatoria ya que al mismo se enviará el comprobante de la inspección realizada.</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+        <section class="section" id="inspeccion">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                <h3>Inspeccion</h3>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                <hr>
+                <ul>
+                    <li>Datos: Permite acceder a las solapas de Datos ip y Vehiculo.</li>
+                    <li>Fotos: Acceso al panel de toma de fotografías. Los recuadros rojos indican las fotos obligatorias</li>
+                    <li>Luces: Acceso al panel de relevamiento estado de  luces</li>
+                    <li>Ruedas: Acceso al panel de relevamiento de neumáticos</li>
+                    <li>Acc: Panel de selección de accesorios y equipamiento unidad</li>
+                    </ul>
+                <p>Una vez completada un área de inspección en botón correspondiente se verá en color AZUL.</p>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <div class="col-xs-12 no-padding-sides">
+                    <h4 style="text-align: center; width:100%">Pantalla</h4>
+                    <hr>
+                </div>
+                <div class="col-xs-12 no-padding-sides"> <a href="assets/img/screens/inspeccion.png"><img src="assets/img/screens/inspeccion.png" width="100%"></a></div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                </div>
+            </div>
+            </section>
+        <section class="section" id="danos">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                <h3>Daños</h3>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                <hr>
+                <ul>
+                    <li>En el centro de la pantalla principal verá una imagen del vehículo, la cual podrá rotar deslizando el dedo sobre la misma</li>
+                    <li>Al seleccionar  un panel   se abrirá el panel de daños posibles. </li>
+                    <li>Deberá seleccionar el tipo de daño (p.e. Abollado)  y  definir su magnitud clickeando sobre el mismo hasta iluminarlo del color correspondiente:  Leve (amarillo) / Medio (Naranja)/o Severo (rojo).</li>
+                    <li>Para confimar, presionar el botón Asignar  Daño</li>
+                    <li>Deberá repetir la operación para todos los paneles  que posean daños</li>
+                </ul>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <div class="col-xs-12 no-padding-sides">
+                    <h4 style="text-align: center; width:100%">Pantalla</h4>
+                    <hr>
+                </div>
+                <div class="col-xs-12 no-padding-sides"> <a href="assets/img/screens/daños.png"><img src="assets/img/screens/daños.png" width="100%"></a></div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Recomendaciones Técnicas</h4>
+                <hr>
+                                <ul>
+                <li>La correcta identificación de los daños – tanto en el casco como en cristales y accesorios-  es uno de los motivos centrales de la Inspección, ya que a partir de los mismos se definirá la  Cobertura a otorgar y la depreciación que en función de los mismos afectará a la suma asegurada.</li>
+                <li>En el anexo 1, se tipifican los daños. Por favor lea atentamente esta guía  para familizarizarse con la definición de los mismos y poder realizar una correcta descripción.</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+        <section class="section" id="fotos">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                <h3>Fotos</h3>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                <hr>
+                                <ul>
+                <li>Al presionar el icono Fotos accederá al panel, donde encontrará los marcos con las fotos sugeridas, y marcadas en rojo las obligatorias.</li>
+                <li>Para tomar las fotografías y poder completar la inspección es necesario que esté activada la geolocalización. Si no lo estuviera en ese momento, el sistema le requerirá activarla para continuar.</li>
+                </ul>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <div class="col-xs-12 no-padding-sides">
+                    <h4 style="text-align: center; width:100%">Pantalla</h4>
+                    <hr>
+                </div>
+                <div class="col-xs-12 no-padding-sides"> <a href="assets/img/screens/fotos.png"><img src="assets/img/screens/fotos.png" width="100%"></a></div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Recomendaciones Técnicas</h4>
+                <hr>
+                <ul>
+                <li>Es fundamental que las fotos se tomen con buena iluminación. Lo mejor es la luz natural, pero en caso de tomarse en un garage u otro interior deberá garantizarse una correcta iluminación de la zona de inspección.</li>
+                <li>Tome las fotos a la menor distancia posible pero garantizándose de que salga completa, sin cortes de la unidad.</li>
+                <li>El parabrisas debe ser sacado desde el interior de la unidad.</li>
+                <li>Si posee granizo o daños importantes tome fotos complementarias.</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+        <section class="section" id="luces">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                <h3>Luces</h3>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                <hr>
+                <ul>
+                    <li>Por default, el botón está iluminado en color azul, indicando que todo FUNCIONA</li>
+                    <li>Podrá asignar el daño al Grupo (seleccionando la etiqueta Grupo) o a la luz individual seleccionando el ícono correspondiente.</li>
+                    <li>Presionando el botón Funciona podrá ubicarlo en GRIS para indicar que no funciona.</li>
+                    <li>Para indicar daños en la óptica integrada o individual  presione el daño correspondiente  para indicar si está  Rajada (Amarillo - Leve/Naranja – Medio /Rojo - Severa), Rota o Faltante. </li>
+                </ul>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <div class="col-xs-12 no-padding-sides">
+                    <h4 style="text-align: center; width:100%">Pantalla</h4>
+                    <hr>
+                </div>
+                <div class="col-xs-12 no-padding-sides"> <a href="assets/img/screens/luces.png"><img src="assets/img/screens/luces.png" width="100%"></a></div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Recomendaciones Técnicas</h4>
+                <hr>
+                <ul>
+                <li>La verificación deberá realizarse tanto sobre el funcionamiento de las luces como sobre el estado de las ópticas.</li>
+                <li>Es fundamental que consigne correctamente el daño en las ópticas ya que su costo es en general alto  y la preexistencia del daño al momento de la inspección libera  a la aseguradora de su reposición</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+        <section class="section" id="ruedas">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                <h3>Ruedas</h3>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                <hr>
+                <ul>
+                <li>Los datos a consignar para cada cubierta son : la profundidad del dibujo en mm /  rodado / marca /  modelo /  llanta / existencia de  posee tuerca de seguridad.</li>
+                <li>Según configuración de ejes y cubiertas deberá seleccionarse si posee o no esa cubierta (ejes duales).</li>
+                <li>Los datos de rodado/ marca / modelo podrán copiarse a todas las cubiertas, pero la profundidad del dibujo debe consignarse  en forma individual.</li>
+                </ul>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <div class="col-xs-12 no-padding-sides">
+                    <h4 style="text-align: center; width:100%">Pantalla</h4>
+                    <hr>
+                </div>
+                <div class="col-xs-12 no-padding-sides"> <a href="assets/img/screens/ruedas.png"><img src="assets/img/screens/ruedas.png" width="100%"></a></div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Recomendaciones Técnicas</h4>
+                <hr>
+                <ul>
+                    <li>Recomendamos el uso de calibre para medir la profundidad del dibujo de la cubierta.</li>
+                    <li>Prestar especial atención a las marcas y modelos como a la existencia de tuercas de seguridad en las ruedas rodantes como en auxilios expuestos (Eco Sport).</li>
+                    <li>Indicar si el auxilio o alguna de las rodantes es Runflat y en caso de vehículo desarmado en taller indicar su existencia solamente si están colocadas en la unidad, si no indicar No Posee.</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+        <section class="section" id="accesorios">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                <h3>Accesorios</h3>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Uso de la App</h4>
+                <hr>
+                                <ul>
+                <li>El icono iluminado en color  <b>AZUL</b>, indica la existencia del accesorio y/o su correcto funcionamiento</li>
+                <li>El ícono iluminado en color <b>ROJO</b>, indica que el accesorio existe pero no funciona o su estado es defectuoso. </li>
+                </ul>
+                </div>
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 no-padding-sides">
+                <div class="col-xs-12 no-padding-sides">
+                    <h4 style="text-align: center; width:100%">Pantalla</h4>
+                    <hr>
+                </div>
+                <div class="col-xs-12 no-padding-sides"> <a href="assets/img/screens/accesorios.png"><img src="assets/img/screens/accesorios.png" width="100%"></a></div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 no-padding-sides">
+                <h4 style="text-align: center; width:100%">Recomendaciones Técnicas</h4>
+                <hr>
+                                <ul>
+                <li>Recuerde verificar: ESTADO DE CERRADURAS / PUESTA EN MARCHA </li>
+                <li>En caso de la existencia de  AIRBAGS deberá verificarse que los mismos no hayan sido activados o se encuentren EXPLOTADOS.</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+        <section class="section" id="envio">
+            <div class="row">
+                <div class="col-xs-12"  style="text-align: center;">
+                <h3>Envío de Inspección</h3>
+                </div>
+                <div class="col-xs-12 no-padding-sides">
+                    <div class="col-xs-12 no-padding-sides">
+                        <h4 style="text-align: center; width:100%">Pantalla</h4>
+                        <hr>
+                    </div>
+                <div class="col-xs-12 no-padding-sides"> <a href="assets/img/screens/envio.png"><img src="assets/img/screens/envio.png" width="100%"></a></div>
+                </div>
+            </div>
+            </section>
+
+            <section class="section" id="daniosPintura">
+                <div class="row">
+                    <div class="col-xs-12"  style="text-align: center;">
+                    <h3>Daños que Afectan la Pintura<br><small><b>Rayado Leve</b></small></h3>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                        <p>Aquella rayaduras propias del uso, de característica superficial que se eliminarían con simples tratamientos de pulidos o aditamentos de uso particular. No requiere pintado del panel.</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">
+                        <div class="col-xs-12 no-padding-sides">
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">Casco</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">Cristales</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12"  style="text-align: center;">
+                        <h3><small><b>Rayado Medio</b></small></h3>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                            <p>Similar a la rayadura leve, pero con mayor extensión de su superficie, o varias rayaduras en el panel inspeccionado.</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">
+                        <div class="col-xs-12 no-padding-sides">
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">...</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12"  style="text-align: center;">
+                        <h3><small><b>Opaco Leve</b></small></h3>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                            <p>El opaco inicia la serie de deterioro en el proceso de pintura. <u>Definimos como opaco la pérdida del brillo, el esmalte de pintura</u>; dado por el paso del tiempo. Se encuentra en vehículo de más de 10 años.</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">
+                        <div class="col-xs-12 no-padding-sides">
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">...</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12"  style="text-align: center;">
+                        <h3><small><b>Opaco Medio</b></small></h3>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                            <p>El panel ha recibido imprimación para recibir la pintura o masillado. Si es menor al 50% de la superficie del panel se consignará como Media. Es decir la unidad tuvo un daño y se encuentra masillado pero no pintado.</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">
+                        <div class="col-xs-12 no-padding-sides">
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">...</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12"  style="text-align: center;">
+                        <h3><small><b>Opaco Severo</b></small></h3>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                            <p>Similar al Opaco medio, pero la extensión masillada supera el 50% de la superficie del panel.</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">
+                        <div class="col-xs-12 no-padding-sides">
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">...</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12"  style="text-align: center;">
+                        <h3><small><b>Opaco Leve</b></small></h3>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                            <p>El opaco inicia la serie de deterioro en el proceso de pintura. <u>Definimos como opaco la pérdida del brillo, el esmalte de pintura</u>; dado por el paso del tiempo. Se encuentra en vehículo de más de 10 años.</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 no-padding-sides">
+                        <div class="col-xs-12 no-padding-sides">
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">...</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                <div class="bottom-pic-text">...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="daniosChapayPintura">
+                    <div class="row">
+                        <div class="col-xs-12"  style="text-align: center;">
+                        <h3>Reparación de Chapa y Pintura<br><small><b>Cuarteado Leve</b></small></h3>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                            <p>El envejecimiento de la pintura se inicia con el Opaco, pierde el esmalte (brillo). El deterioro continúa con el Cuarteado cuando apreciamos pequeños resquebrajamientos de la pintura, en formato de tela de araña que se visualizan sobre el panel. Si la superficie afectada por este daño es menor al 25% de la superficie el daño es leve.</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">
+                            <div class="col-xs-12 no-padding-sides">
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12"  style="text-align: center;">
+                            <h3><small><b>Cuarteado Medio</b></small></h3>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                                <p>Entre el 25% y 50% de la superficie del panel.</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">
+                            <div class="col-xs-12 no-padding-sides">
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-xs-12"  style="text-align: center;">
+                            <h3><small><b>Opaco Leve</b></small></h3>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                                <p>El opaco inicia la serie de deterioro en el proceso de pintura. <u>Definimos como opaco la pérdida del brillo, el esmalte de pintura</u>; dado por el paso del tiempo. Se encuentra en vehículo de más de 10 años.</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">
+                            <div class="col-xs-12 no-padding-sides">
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-xs-12"  style="text-align: center;">
+                            <h3><small><b>Opaco Medio</b></small></h3>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                                <p>El panel ha recibido imprimación para recibir la pintura o masillado. Si es menor al 50% de la superficie del panel se consignará como Media. Es decir la unidad tuvo un daño y se encuentra masillado pero no pintado.</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">
+                            <div class="col-xs-12 no-padding-sides">
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-xs-12"  style="text-align: center;">
+                            <h3><small><b>Opaco Severo</b></small></h3>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                                <p>Similar al Opaco medio, pero la extensión masillada supera el 50% de la superficie del panel.</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">
+                            <div class="col-xs-12 no-padding-sides">
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-xs-12"  style="text-align: center;">
+                            <h3><small><b>Opaco Leve</b></small></h3>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">                        
+                                <p>El opaco inicia la serie de deterioro en el proceso de pintura. <u>Definimos como opaco la pérdida del brillo, el esmalte de pintura</u>; dado por el paso del tiempo. Se encuentra en vehículo de más de 10 años.</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 no-padding-sides">
+                            <div class="col-xs-12 no-padding-sides">
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="assets/img/user_img.png"><img src="assets/img/user_img.png" width="100%"></a>
+                                    <div class="bottom-pic-text">...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+    </div>
+</body>
+<script>
+    /* Set the width of the side navigation to 250px */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+</script>
+<!--   Core JS Files   -->
+<script src="assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/js/jquery.bootstrap-autohidingnavbar.min.js" type="text/javascript"></script>
+
+<script>$("div.navbar-fixed-top").autoHidingNavbar();</script>
+</html>

@@ -8,6 +8,9 @@ exports.getRoutesHandler = function(express){
 		.get(controller.findAll)
 		.post(controller.addCentroFacturacion)
 		.put(controller.updateCentroFacturacion);
+	
+	routesHandler.route('/centrosFacturacionNames')
+		.get(controller.findAllNames);
 
 	routesHandler.route('/centrosFacturacion/:id')
 		.get(controller.findById);

@@ -29,7 +29,9 @@ export class TableComponent {
     @Input() exportableOption:boolean = true;
     @Input() headerButtons:any;
     @Input() bodyButtons:any;
+    @Input() rowButtons:any;
     @Input() fillEdit:boolean = true;
+    @Input() reload: boolean = false;
     @Output() event = new EventEmitter();
     public keys:string[];
     public keysEdicion:string[];
@@ -96,6 +98,11 @@ export class TableComponent {
 
     emitSelect(event) {
         this.event.emit(event);
+    }
+
+    emitSelect2(event, row, title) {
+        this.event.emit(event);
+        row[title] = true;
     }
 
     handleSelection(event, modo) {
@@ -177,13 +184,12 @@ export class TableComponent {
     }
 
     ngOnChanges(changes: any) {        
-        if(changes.urlGet || changes.urlGetParameters) {
-            this.loadURLData();            
-        }
+        if(changes.urlGet || changes.urlGetParameters)
+            this.loadURLData();        
     }
 
     isCombo(item) {
-        return (typeof item == 'object' && item.type == 'select')
+        return (typeof item == 'object' && item.type == 'select');
     }
 
     getColor() {
@@ -207,6 +213,8 @@ export class TableComponent {
             return 'success';
         if(this.color=='yellow')
             return 'warning';
+        if(this.color=='blue')
+            return 'info';
         return 'danger';
     }
 
